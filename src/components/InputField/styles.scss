@@ -1,0 +1,35 @@
+@import "../../constants//styles.scss";
+
+.task-field {
+  width: 100%;
+
+  .input-field {
+    align-items: flex-end;
+    display: flex;
+    width: 100%;
+    margin-top: 5px;
+
+    .list-counter {
+      width: 20px;
+    }
+
+    input.text {
+      height: 30px;
+      margin: 3px 0px 0px 0px;
+      box-sizing: border-box;
+      border: none;
+      outline: none;
+      border-bottom: 2px solid rgb(202, 202, 202);
+      font-size: 14px;
+      padding-top: 10px;
+      margin: 0px 8px;
+      width: 100%;
+    }
+    &.done {
+      input.text {
+        border-bottom: 2px solid $summerGreenColor;
+        text-decoration: line-through;
+      }
+    }
+  }
+}
