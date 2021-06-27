@@ -1,8 +1,6 @@
-import { ITask } from "./types";
-import { updateStorage } from "components/Board/constants";
+import { IBlank, ITask } from "./types";
 
-export const defaultNumberOfFields = 6;
-
+export const defaultNumberOfTasks = 1;
 export const taskDefaultModel: ITask = {
   id: null,
   value: null,
@@ -12,13 +10,14 @@ export const taskDefaultModel: ITask = {
 };
 
 export const defaultTasksField = (): ITask[] => {
-  const fieldsNumber = [...new Array(defaultNumberOfFields).keys()];
-  return fieldsNumber.map((index) => {
-    const task = { ...defaultTasksField, id: index };
+  const fieldsNumber = [...new Array(defaultNumberOfTasks).keys()];
+  return fieldsNumber.map((id) => {
+    const task = { ...taskDefaultModel, id };
     return task;
   });
 };
-export const defaultModel: any = {
+
+export const blankDefaultModel: IBlank = {
   date: null,
   id: null,
   tasks: defaultTasksField(),

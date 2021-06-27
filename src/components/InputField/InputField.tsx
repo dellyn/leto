@@ -5,19 +5,22 @@ import "./styles.scss";
 import "./checkbox.scss";
 
 const InputField = (props: IInputFieldProps) => {
-  const { data, onFieldChange } = props;
+  const { data, onFieldChange, listCounter, handleEnter } = props;
 
   const [fieldValue, setFieldValue] = useState(data.label);
-  const [checkedStatus, setCheckedStatus] = useState(data.done);
+  const [checkedStatus, setCheckedStatus] = useState<boolean>(!!data.done);
 
   const onTextChange = (e: any) => {
-    const { value } = e.target;
-    setFieldValue(value);
-    onFieldChange({ name: "label", value, id: data.id });
-    if (!value) {
+    const value = e.target.value.replace(/\s\s+/g, " ");
+
+    if (value) {
+      onFieldChange({ name: "label", value: value, id: data.id });
+    } else {
       setCheckedStatus(false);
       onFieldChange({ name: "done", value: false, id: data.id });
+      onFieldChange({ name: "label", value: "", id: data.id });
     }
+    setFieldValue(value);
   };
 
   const onDoneStatusChange = () => {
@@ -29,13 +32,13 @@ const InputField = (props: IInputFieldProps) => {
 
   return (
     <div className={`input-field ${checkedStatus ? "done" : ""}`}>
-      <span className="list-counter">{props.listCounter + 1}.</span>
+      <span className="list-counter">{listCounter + 1}.</span>
       <input
         className="text"
         name="taskField"
         value={fieldValue}
         onChange={onTextChange}
-        onBlur={props.onBlur}
+        onKeyDown={handleEnter}
       />
       <div className="custom-checkbox">
         <input

@@ -1,15 +1,10 @@
+import { ITaskData, ITask } from "constants/types";
+
 export interface IInputFieldProps {
   blankId: number;
-  data: ITaskData;
+  data: ITask;
   listCounter?: number;
   onBlur?: () => void;
   onFieldChange?: (data: ITaskData) => void;
-}
-
-export interface ITaskData {
-  name: string;
-  value: string | number | boolean;
-  id?: number;
-  label?: string;
-  done?: boolean;
+  handleEnter?: (event: any) => void;
 }

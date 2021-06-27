@@ -13,7 +13,11 @@ export interface ITask {
   done?: boolean;
   flag?: string;
 }
-
+export interface ITaskData {
+  name: string;
+  value: string | number | boolean;
+  id: number;
+}
 export interface SomeTime {
   aMoment: Moment;
 }
