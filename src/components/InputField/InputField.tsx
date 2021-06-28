@@ -20,6 +20,8 @@ const InputField = (props: IInputFieldProps) => {
       onFieldChange({ name: "done", value: false, id: data.id });
       onFieldChange({ name: "label", value: "", id: data.id });
     }
+    handleEnter(e, value);
+
     setFieldValue(value);
   };
 

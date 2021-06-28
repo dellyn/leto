@@ -5,5 +5,5 @@ export interface ITaskFieldProps {
   data: ITask;
   listCounter: number;
   onFieldChange: (data: ITask) => void;
-  handleEnter: (event: any) => void;
+  handleEnter: (event: any, value?: string) => void;
 }

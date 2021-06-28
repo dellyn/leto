@@ -6,5 +6,5 @@ export interface IInputFieldProps {
   listCounter?: number;
   onBlur?: () => void;
   onFieldChange?: (data: ITaskData) => void;
-  handleEnter?: (event: any) => void;
+  handleEnter?: (event: any, value?: string) => void;
 }

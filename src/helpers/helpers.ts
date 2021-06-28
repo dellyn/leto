@@ -1,5 +1,6 @@
 import { taskDefaultModel, defaultNumberOfTasks } from "constants/constants";
 import { IBlank, ITask } from "constants/types";
+import React, { ReactElement, ReactHTMLElement } from "react";
 
 export const controlNumberOfTasks = (data: IBlank) => {
   const tasksArrLength = data.tasks.length;
@@ -33,4 +34,19 @@ export const controlNumberOfTasks = (data: IBlank) => {
       return data;
     }
   }
+};
+
+export const triggerInput = (inputField: any, enteredValue = "") => {
+  const input = inputField;
+  const lastValue = input.value;
+  input.value = enteredValue;
+
+  const event = new Event("input", { bubbles: true });
+  const tracker = input._valueTracker;
+
+  if (tracker) {
+    tracker.setValue(lastValue);
+  }
+
+  input.dispatchEvent(event);
 };

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 import CarouselComponent from "../Carousel/Carousel";
 import { blankDefaultModel } from "../../constants/constants";
-
+import { triggerInput } from "helpers/helpers";
 import { IBlank } from "constants/types";
 
 import {
@@ -80,16 +80,59 @@ const Board = () => {
   );
 
   // field navigation using enter
-  const taskFieldsKeyboardNavigation = React.useCallback((event: any): void => {
-    if (event.keyCode === 13) {
-      const form = event.target.form;
-      if (form) {
-        const index = Array.prototype.indexOf.call(form, event.target);
-        form.elements[index + 2]?.focus();
-        event.preventDefault();
-      }
-    }
-  }, []);
+  // const taskFieldsKeyboardNavigation = React.useCallback((event: any): void => {
+  //   const bottomArrow = 40;
+  //   const topArrow = 38;
+  //   const enterKeyCode = 13;
+  //   const deleteKeyCode = 8;
+  //   const form = event.target.form;
+
+  //   if (form) {
+  //     const index = Array.prototype.indexOf.call(form, event.target);
+  //     // if form html structure will be changed it's possible to crash
+  //     const prevInputField = form.elements[index - 2];
+  //     const nextInputField = form.elements[index + 2];
+  //     const firstInputField = form.elements[0];
+  //     const inputField = form.elements[index];
+
+  //     switch (event.keyCode) {
+  //       case enterKeyCode:
+  //         nextInputField?.focus();
+  //         event.preventDefault();
+
+  //         break;
+  //       case deleteKeyCode:
+  //         if (inputField.value.length <= 1) {
+  //           console.log("start", inputField.value.length);
+
+  //           if (firstInputField === document.activeElement) {
+  //             event.preventDefault();
+  //             triggerInput(firstInputField);
+  //             form.elements[0].focus();
+  //           } else {
+  //             event.preventDefault();
+  //             triggerInput(inputField);
+  //             prevInputField?.focus();
+  //           }
+  //         }
+  //         console.log("end", inputField.value.length);
+
+  //         break;
+  //       case topArrow:
+  //         event.preventDefault();
+  //         prevInputField?.focus();
+
+  //         break;
+  //       case bottomArrow:
+  //         event.preventDefault();
+  //         nextInputField?.focus();
+
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   }
+  // }, []);
 
   useEffect(() => {
     const initialApp = () => {
@@ -113,9 +156,6 @@ const Board = () => {
     initialApp();
     updateAppData(appData);
 
-    document.addEventListener("keydown", taskFieldsKeyboardNavigation);
-    return () =>
-      document.removeEventListener("keydown", taskFieldsKeyboardNavigation);
   }, []);
 
   // custom live pagination, month and week navigation in v2
@@ -131,7 +171,7 @@ const Board = () => {
         onSlideEnded={onSlideEnded}
         slidesCount={appData.length}
         todaySlideIndex={todaySlideIndex}
-        handleEnter={taskFieldsKeyboardNavigation}
+        handleEnter={()=>{}}
       />
     </div>
   );
