@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { IInputFieldProps } from "./types";
+import { inputFieldValidationRegEx } from "constants/constants";
 
 import "./styles.scss";
 import "./checkbox.scss";
@@ -11,14 +12,26 @@ const InputField = (props: IInputFieldProps) => {
   const [checkedStatus, setCheckedStatus] = useState<boolean>(!!data.done);
 
   const onTextChange = (e: any) => {
-    const value = e.target.value.replace(/\s\s+/g, " ");
+    const value = e.target.value.replace(inputFieldValidationRegEx, " ");
 
     if (value) {
-      onFieldChange({ name: "label", value: value, id: data.id });
+      onFieldChange({
+        name: "label",
+        value: value,
+        id: data.id,
+      });
     } else {
       setCheckedStatus(false);
-      onFieldChange({ name: "done", value: false, id: data.id });
-      onFieldChange({ name: "label", value: "", id: data.id });
+      onFieldChange({
+        name: "done",
+        value: false,
+        id: data.id,
+      });
+      onFieldChange({
+        name: "label",
+        value: "",
+        id: data.id,
+      });
     }
     handleEnter(e, value);
 
@@ -28,7 +41,11 @@ const InputField = (props: IInputFieldProps) => {
   const onDoneStatusChange = () => {
     if (fieldValue) {
       setCheckedStatus(!checkedStatus);
-      onFieldChange({ name: "done", value: !checkedStatus, id: data.id });
+      onFieldChange({
+        name: "done",
+        value: !checkedStatus,
+        id: data.id,
+      });
     }
   };
 

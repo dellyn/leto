@@ -1,11 +1,16 @@
 import { Moment } from "moment";
+import { Interface } from "readline";
 
 export interface IBlank {
   date: string;
   id: number;
   tasks: ITask[];
   timeStatus: string;
+  additionalInfo: {
+    label: string;
+  };
 }
+
 export interface ITask {
   id: number;
   value?: number;
@@ -20,4 +25,8 @@ export interface ITaskData {
 }
 export interface SomeTime {
   aMoment: Moment;
+}
+export interface IUpdModel {
+  name: string;
+  value: any;
 }

@@ -1,6 +1,8 @@
 import { IBlank, ITask } from "./types";
 
+export const inputFieldValidationRegEx = /\s\s+/g;
 export const defaultNumberOfTasks = 1;
+
 export const taskDefaultModel: ITask = {
   id: null,
   value: null,
@@ -22,4 +24,7 @@ export const blankDefaultModel: IBlank = {
   id: null,
   tasks: defaultTasksField(),
   timeStatus: null,
+  additionalInfo: {
+    label: "",
+  },
 };

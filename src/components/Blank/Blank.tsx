@@ -3,10 +3,11 @@ import moment from "moment";
 import useSaveData from "../../helpers/useMount";
 import { controlNumberOfTasks } from "helpers/helpers";
 import TaskField from "components/TaskField/TaskField";
-import { IBlank, ITask } from "constants/types";
+import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
 import "./styles.scss";
 import { triggerInput } from "helpers/helpers";
+import { AdditionalPopup } from "./AdditionalPopup";
 
 const Blank = (props: IBlankProps) => {
   const { data, onSave } = props;
@@ -16,20 +17,27 @@ const Blank = (props: IBlankProps) => {
     id: data.id,
     date: data.date,
     timeStatus: data.timeStatus,
+    additionalInfo: data.additionalInfo,
   });
 
   const weekDay = moment(blankData.date).format("dddd");
 
-  const configData = (data: ITask) => {
-    const updatedTasks = blankData.tasks.map((task: ITask) => {
-      return task.id === data.id ? data : task;
-    });
+  const configData = (model: IUpdModel) => {
+    if (model.name === "tasks") {
+      const updatedTasks = blankData.tasks.map((task: ITask) => {
+        return task.id === model.value.id ? model.value : task;
+      });
 
-    setBlankData((prevData) => {
-      const copyData = { ...prevData, tasks: updatedTasks };
-      const updatedData = controlNumberOfTasks(copyData);
-      return updatedData;
-    });
+      setBlankData((prevData) => {
+        const copyData = { ...prevData, tasks: updatedTasks };
+        const updatedData = controlNumberOfTasks(copyData);
+        return updatedData;
+      });
+    } else {
+      setBlankData((prevData) => {
+        return { ...prevData, [model.name]: model.value };
+      });
+    }
   };
 
   useSaveData(blankData, () => onSave(blankData));
@@ -123,11 +131,12 @@ const Blank = (props: IBlankProps) => {
     nextFocusInput.index &&
       formRef.current.elements[nextFocusInput.index]?.focus();
   }, [nextFocusInput]);
+
   return (
     <div className={`blank ${blankData.timeStatus}`}>
       <h2 className="week-day">{weekDay}</h2>
       <p className="date">{blankData.date}</p>
-
+      <AdditionalPopup data={blankData} onFieldChange={configData} />
       <form className="fields-list scroll" ref={formRef}>
         {blankData.tasks.map((task: ITask, index: number) => {
           return (

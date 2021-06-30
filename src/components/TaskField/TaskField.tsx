@@ -4,7 +4,7 @@ import { ITaskFieldProps } from "./types";
 const TaskField = (props: ITaskFieldProps) => {
   const onTaskChange = (data: ITaskData) => {
     const updatedData = { ...props.data, [data.name]: data.value };
-    props.onFieldChange(updatedData);
+    props.onFieldChange({ name: "tasks", value: updatedData });
   };
 
   return (

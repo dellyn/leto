@@ -1,0 +1,61 @@
+@import "constants/styles.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-family: "Montserrat";
+  background: #eaf2ff;
+}
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+header,
+section,
+footer,
+div,
+span,
+p,
+input,
+textarea,
+label,
+a {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 1400px;
+  margin: 0 auto;
+}
+h1 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 30px;
+}
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6;
+  border-radius: 2px;
+}
+::-webkit-scrollbar {
+  height: 5px;
+  width: 3px;
+}
+.head-title {
+  font-size: 35px;
+  color: #fff;
+  background-color: #c0d9ff;
+  position: absolute;
+  left: 50%;
+  top: 50px;
+  transform: translate(-50%, 0);
+  box-shadow: 0px 0px 0px 3px #fff;
+  padding: 2px;
+}
