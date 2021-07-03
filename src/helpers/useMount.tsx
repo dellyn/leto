@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-const useActionAfterMount = (dependencies: any, callback: any) => {
+const useActionAfterMount = (deps: any, callback: any) => {
   const isMounted = useRef(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const useActionAfterMount = (dependencies: any, callback: any) => {
     } else {
       isMounted.current = true;
     }
-  }, [dependencies]);
+  }, [callback, deps]);
 };
 
 export default useActionAfterMount;

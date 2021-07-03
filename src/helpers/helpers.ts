@@ -1,6 +1,5 @@
 import { taskDefaultModel, defaultNumberOfTasks } from "constants/constants";
 import { IBlank, ITask } from "constants/types";
-import React, { ReactElement, ReactHTMLElement } from "react";
 
 export const controlNumberOfTasks = (data: IBlank) => {
   const tasksArrLength = data.tasks.length;
@@ -50,3 +49,5 @@ export const triggerInput = (inputField: any, enteredValue = "") => {
 
   input.dispatchEvent(event);
 };
+
+export const controlViewSize = () => {};

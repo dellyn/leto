@@ -15,6 +15,7 @@ $swiperTopPadding: 100px;
   margin-top: $swiperTopPadding;
   border-top: 5px solid transparent;
   padding-top: 10px;
+  max-width: 330px;
 
   &.past {
     opacity: 0.5;
@@ -35,3 +36,12 @@ $swiperTopPadding: 100px;
   height: 290px;
 }
 
+@media screen and (max-width: 600px) {
+  .blank {
+    margin: 100px auto 0px auto;
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}
