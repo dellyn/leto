@@ -29,3 +29,7 @@ export interface IUpdModel {
   name: string;
   value: any;
 }
+
+export type IInputKeyNavEvent = any;
+// | React.KeyboardEvent<HTMLInputElement>
+// | React.ChangeEvent<HTMLInputElement>;

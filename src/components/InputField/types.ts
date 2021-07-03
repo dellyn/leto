@@ -1,4 +1,4 @@
-import { ITaskData, ITask } from "constants/types";
+import { ITaskData, ITask, IInputKeyNavEvent } from "constants/types";
 
 export interface IInputFieldProps {
   blankId: number;
@@ -6,5 +6,5 @@ export interface IInputFieldProps {
   listCounter?: number;
   onBlur?: () => void;
   onFieldChange?: (data: ITaskData) => void;
-  handleKeyNavigation?: (event: any, value?: string) => void;
+  handleKeyNavigation?: (event: IInputKeyNavEvent, value?: string) => void;
 }

@@ -1,15 +1,13 @@
 import React, {
-  useLayoutEffect,
   useRef,
   useState,
-  useCallback,
   useEffect,
 } from "react";
 import moment from "moment";
 import useSaveData from "../../helpers/useMount";
 import { controlNumberOfTasks } from "helpers/helpers";
 import TaskField from "components/TaskField/TaskField";
-import { IBlank, ITask, IUpdModel } from "constants/types";
+import { IBlank, ITask, IUpdModel, IInputKeyNavEvent } from "constants/types";
 import { IBlankProps } from "./types";
 import { triggerInput } from "helpers/helpers";
 import { AdditionalPopup } from "../AdditionalPopup/AdditionalPopup";
@@ -57,11 +55,15 @@ const Blank = (props: IBlankProps) => {
     }
   };
 
-  const taskFieldsKeyboardNavigation = useCallback((event, fieldValue) => {
+  const taskFieldsKeyboardNavigation = (
+    event: IInputKeyNavEvent,
+    fieldValue: string
+  ) => {
     const form = formRef.current;
 
     if (form) {
-      const currentInputCarretPosition = event.target.selectionStart;
+      // currentTarget vs target
+      const currentInputCarretPosition = event.currentTarget.selectionStart!;
       const index = Array.prototype.indexOf.call(form, event.target);
       // if form html structure will be changed it's possible to crash
       const inputsStep = 2;
@@ -124,7 +126,7 @@ const Blank = (props: IBlankProps) => {
           break;
       }
     }
-  }, []);
+  };
 
   useEffect(() => {
     if (nextFocusInput.index !== null) {
