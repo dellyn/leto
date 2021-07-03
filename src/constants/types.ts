@@ -1,5 +1,4 @@
 import { Moment } from "moment";
-import { Interface } from "readline";
 
 export interface IBlank {
   date: string;
@@ -21,7 +20,7 @@ export interface ITask {
 export interface ITaskData {
   name: string;
   value: string | number | boolean;
-  id: number;
+  id?: number;
 }
 export interface SomeTime {
   aMoment: Moment;

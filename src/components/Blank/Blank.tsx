@@ -12,7 +12,7 @@ import TaskField from "components/TaskField/TaskField";
 import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
 import { triggerInput } from "helpers/helpers";
-import { AdditionalPopup } from "./AdditionalPopup";
+import { AdditionalPopup } from "../AdditionalPopup/AdditionalPopup";
 
 import "./styles.scss";
 
@@ -57,76 +57,74 @@ const Blank = (props: IBlankProps) => {
     }
   };
 
-  const taskFieldsKeyboardNavigation = useCallback(
-    (event, fieldValue: string): void => {
-      const form = formRef.current;
+  const taskFieldsKeyboardNavigation = useCallback((event, fieldValue) => {
+    const form = formRef.current;
 
-      if (form) {
-        const currentInputCarretPosition = event.target.selectionStart;
-        const index = Array.prototype.indexOf.call(form, event.target);
-        // if form html structure will be changed it's possible to crash
-        const prevInput = form.elements[index - 2];
-        const nextInput = form.elements[index + 2];
-        const currentInput = form.elements[index];
+    if (form) {
+      const currentInputCarretPosition = event.target.selectionStart;
+      const index = Array.prototype.indexOf.call(form, event.target);
+      // if form html structure will be changed it's possible to crash
+      const inputsStep = 2;
+      const prevInput = form.elements[index - inputsStep];
+      const nextInput = form.elements[index + inputsStep];
+      const currentInput = form.elements[index];
 
-        if (fieldValue === "") {
-          setNextFocusInputAfterDelete({ index });
-        }
-
-        const setCurrentCarretPosition = (el: HTMLInputElement) => {
-          el.selectionEnd = el.selectionStart = currentInputCarretPosition;
-        };
-
-        switch (event.keyCode) {
-          case enterCode:
-            event.preventDefault();
-
-            if (nextInput) {
-              setCurrentCarretPosition(nextInput);
-              nextInput.focus();
-            }
-
-            break;
-          case deleteCode:
-            //  why used uncotrolled acrtion? - currentInput
-            if (currentInput.value.length === 0 && prevInput) {
-              event.preventDefault();
-              triggerInput(currentInput);
-              prevInput.focus();
-            }
-
-            break;
-          case topArrowCode:
-            if (prevInput) {
-              event.preventDefault();
-              setCurrentCarretPosition(prevInput);
-              prevInput.focus();
-            }
-
-            break;
-          case bottomArrowCode:
-            if (nextInput) {
-              event.preventDefault();
-              setCurrentCarretPosition(nextInput);
-              nextInput.focus();
-            }
-
-            break;
-          case leftArrowCode:
-            if (currentInputCarretPosition === 0 && prevInput) {
-              event.preventDefault();
-              prevInput.selectionStart = 999;
-              prevInput.focus();
-            }
-
-            break;
-          default:
-            break;
-        }
+      if (fieldValue === "") {
+        setNextFocusInputAfterDelete({ index });
       }
-    },
-    []
-  );
+
+      const setCurrentCarretPosition = (el: HTMLInputElement) => {
+        el.selectionEnd = el.selectionStart = currentInputCarretPosition;
+      };
+
+      switch (event.keyCode) {
+        case enterCode:
+          event.preventDefault();
+
+          if (nextInput) {
+            setCurrentCarretPosition(nextInput);
+            nextInput.focus();
+          }
+
+          break;
+        case deleteCode:
+          //  why used uncotrolled acrtion? - currentInput
+          if (currentInput.value.length === 0 && prevInput) {
+            event.preventDefault();
+            triggerInput(currentInput);
+            prevInput.focus();
+          }
+
+          break;
+        case topArrowCode:
+          if (prevInput) {
+            event.preventDefault();
+            setCurrentCarretPosition(prevInput);
+            prevInput.focus();
+          }
+
+          break;
+        case bottomArrowCode:
+          if (nextInput) {
+            event.preventDefault();
+            setCurrentCarretPosition(nextInput);
+            nextInput.focus();
+          }
+
+          break;
+        case leftArrowCode:
+          if (currentInputCarretPosition === 0 && prevInput) {
+            event.preventDefault();
+            prevInput.selectionStart = 999;
+            prevInput.focus();
+          }
+
+          break;
+        default:
+          break;
+      }
+    }
+  }, []);
 
   useEffect(() => {
     if (nextFocusInput.index !== null) {
@@ -163,7 +161,7 @@ const Blank = (props: IBlankProps) => {
               listCounter={index}
               blankId={blankData.id}
               onFieldChange={configData}
-              handleEnter={taskFieldsKeyboardNavigation}
+              handleKeyNavigation={taskFieldsKeyboardNavigation}
             />
           );
         })}

@@ -7,18 +7,16 @@ import { IBlank } from "constants/types";
 import {
   timeFormat,
   daysOfTheWeek,
-  LSDataName,
   LSLastUpdateDateName,
   updateStorage,
+  currentDate,
+  source,
 } from "./constants";
 
 import "./styles.scss";
 
 const Board = () => {
-  const source = localStorage.getItem(LSDataName);
   const [appData, setAppData] = useState(JSON.parse(source) || []);
-  const today = moment();
-  const currentDate = today.format(timeFormat);
 
   const configTimeStatus = (newModel: IBlank, date: string) => {
     const isDayInPast = moment(date).isBefore(currentDate);
@@ -31,14 +29,14 @@ const Board = () => {
   };
 
   const createBlanksByCount = (count: number, date?: string) => {
-    const arr = [];
+    const blanksArr = [];
     const isInitialApp = !date;
     for (let i = isInitialApp ? -1 : 1; i <= count; i++) {
       const nextDay: string = moment(date).add(i, "days").format(timeFormat);
       const index = appData.length - 1 + i;
-      arr.push(createNewBlank(nextDay, index));
+      blanksArr.push(createNewBlank(nextDay, index));
     }
-    return arr;
+    return blanksArr;
   };
 
   const createNewBlank = (date: string, id: number) => {
@@ -78,12 +76,12 @@ const Board = () => {
   );
 
   useEffect(() => {
-    const initialApp = () => {
+    const firstInitialApp = () => {
       if (appData.length < daysOfTheWeek) {
         addNewBlanks(createBlanksByCount(daysOfTheWeek));
       }
     };
-    const updateAppData = (data: IBlank[]) => {
+    const everydayUpdateApp = (data: IBlank[]) => {
       const lastUpdateDateSource = localStorage.getItem(LSLastUpdateDateName);
       const lastUpdateDate = JSON.parse(lastUpdateDateSource);
       const lastUpdateIsToday = moment(lastUpdateDate).isSame(currentDate);
@@ -96,14 +94,15 @@ const Board = () => {
         localStorage.setItem(LSLastUpdateDateName, JSON.stringify(currentDate));
       }
     };
-    initialApp();
-    updateAppData(appData);
+    firstInitialApp();
+    everydayUpdateApp(appData);
   }, []);
 
   // custom live pagination, month and week navigation in v2
   const showPrevBlanks = () => {};
   const showNextBlnks = () => {};
   const navigateToDate = () => {};
+  const exportToExcel = () => {};
 
   return (
     <>
@@ -115,7 +114,7 @@ const Board = () => {
           onSlideEnded={onSlideEnded}
           slidesCount={appData.length}
           todaySlideIndex={todaySlideIndex}
-          handleEnter={() => {}}
+          handleKeyNavigation={() => {}}
         />
       </div>
     </>

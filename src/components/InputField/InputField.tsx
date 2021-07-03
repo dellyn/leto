@@ -6,46 +6,30 @@ import "./styles.scss";
 import "./checkbox.scss";
 
 const InputField = (props: IInputFieldProps) => {
-  const { data, onFieldChange, listCounter, handleEnter } = props;
+  const { data, onFieldChange, listCounter, handleKeyNavigation, blankId } =
+    props;
 
   const [fieldValue, setFieldValue] = useState(data.label);
-  const [checkedStatus, setCheckedStatus] = useState<boolean>(!!data.done);
+  const [checkedStatus, setCheckedStatus] = useState<boolean>(data.done);
 
-  const onTextChange = (e: any) => {
+  const onTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(inputFieldValidationRegEx, " ");
 
     if (value) {
-      onFieldChange({
-        name: "label",
-        value: value,
-        id: data.id,
-      });
+      onFieldChange({ name: "label", value: value });
     } else {
       setCheckedStatus(false);
-      onFieldChange({
-        name: "done",
-        value: false,
-        id: data.id,
-      });
-      onFieldChange({
-        name: "label",
-        value: "",
-        id: data.id,
-      });
+      onFieldChange({ name: "done", value: false });
+      onFieldChange({ name: "label", value: "" });
     }
-    handleEnter(e, value);
-
+    handleKeyNavigation(e, value);
     setFieldValue(value);
   };
 
   const onDoneStatusChange = () => {
     if (fieldValue) {
       setCheckedStatus(!checkedStatus);
-      onFieldChange({
-        name: "done",
-        value: !checkedStatus,
-        id: data.id,
-      });
+      onFieldChange({ name: "done", value: !checkedStatus });
     }
   };
 
@@ -57,17 +41,17 @@ const InputField = (props: IInputFieldProps) => {
         name="taskField"
         value={fieldValue}
         onChange={onTextChange}
-        onKeyDown={handleEnter}
+        onKeyDown={handleKeyNavigation}
         title={fieldValue}
       />
       <div className="custom-checkbox">
         <input
-          id={`${data.id} ${props.blankId}`}
+          id={`checkboxId${blankId}${data.id}`}
           type="checkbox"
           onChange={onDoneStatusChange}
           checked={checkedStatus}
         />
-        <label htmlFor={`${data.id} ${props.blankId}`}>
+        <label htmlFor={`checkboxId${blankId}${data.id}`}>
           <span></span>
         </label>
       </div>
