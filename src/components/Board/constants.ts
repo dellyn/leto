@@ -1,7 +1,7 @@
 import { IBlank } from "../../constants/types";
 
 export const timeFormat = "L";
-export const weekDaysCount = 7;
+export const daysOfTheWeek = 7;
 export const LSDataName = "letoAppData";
 export const LSLastUpdateDateName = "letoLastUpdateDate";
 

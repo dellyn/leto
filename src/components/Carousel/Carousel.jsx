@@ -1,14 +1,14 @@
+import { useState } from "react";
 import Blank from "../Blank/Blank";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Controller } from "swiper/core";
 
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.scss";
 import "./Carousel.scss";
-import { useState } from "react";
 
 const slidesPerView = 5;
-SwiperCore.use([Navigation]);
+const nextBtnClass = "btnNextSlide";
+const prevBtnClass = "btnPrevSlide";
 
 const CarouselComponent = (props) => {
   const [controlledSwiper, setControlledSwiper] = useState(null);
@@ -18,7 +18,6 @@ const CarouselComponent = (props) => {
   };
 
   const onSwiper = (swiper) => {
-    console.log(swiper);
     swiper.slideTo(props.todaySlideIndex - 1, 0);
     setControlledSwiper(swiper);
   };
@@ -28,23 +27,19 @@ const CarouselComponent = (props) => {
       controlledSwiper.slideTo(controlledSwiper.activeIndex + 1, 0);
   };
 
-  const handleInit = (params) => {
-    console.log(params);
-  };
-  console.log(controlledSwiper);
+  const handleInit = (params) => {};
   return (
     <>
-      <span className="swiper-button-prev btnPrevSlide"></span>
+      <span className={`swiper-button-prev ${prevBtnClass}`}></span>
 
       <Swiper
         slidesPerView={slidesPerView}
         pagination={true}
-        navigation={{ nextEl: ".btnNextSlide", prevEl: ".btnPrevSlide" }}
+        navigation={{ nextEl: `.${nextBtnClass}`, prevEl: `.${prevBtnClass}` }}
         onReachEnd={(data) => handleChange(data)}
         onSwiper={onSwiper}
         onInit={handleInit}
         slideDuplicateNextClass="creq"
-        next={(e) => console.log(e)}
       >
         {props.data.map((data, idx) => {
           return (
@@ -54,7 +49,7 @@ const CarouselComponent = (props) => {
           );
         })}
       </Swiper>
-      <span className="swiper-button-next btnNextSlide"></span>
+      <span className={`swiper-button-next ${nextBtnClass}`}></span>
     </>
   );
 };

@@ -1,13 +1,26 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useLayoutEffect,
+  useRef,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import moment from "moment";
 import useSaveData from "../../helpers/useMount";
 import { controlNumberOfTasks } from "helpers/helpers";
 import TaskField from "components/TaskField/TaskField";
 import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
-import "./styles.scss";
 import { triggerInput } from "helpers/helpers";
 import { AdditionalPopup } from "./AdditionalPopup";
+
+import "./styles.scss";
+
+const bottomArrowCode = 40;
+const topArrowCode = 38;
+const leftArrowCode = 37;
+const enterCode = 13;
+const deleteCode = 8;
 
 const Blank = (props: IBlankProps) => {
   const { data, onSave } = props;
@@ -19,8 +32,12 @@ const Blank = (props: IBlankProps) => {
     timeStatus: data.timeStatus,
     additionalInfo: data.additionalInfo,
   });
+  const dayOfWeek = moment(blankData.date).format("dddd");
 
-  const weekDay = moment(blankData.date).format("dddd");
+  const formRef = useRef(null);
+  const [nextFocusInput, setNextFocusInputAfterDelete] = useState({
+    index: null,
+  });
 
   const configData = (model: IUpdModel) => {
     if (model.name === "tasks") {
@@ -40,18 +57,8 @@ const Blank = (props: IBlankProps) => {
     }
   };
 
-  useSaveData(blankData, () => onSave(blankData));
-  const formRef = useRef(null);
-  const [nextFocusInput, setNextFocusInputAfterDelete] = useState({
-    index: null,
-  });
-  const taskFieldsKeyboardNavigation = React.useCallback(
-    (event: any, fieldValue: string): void => {
-      const bottomArrowCode = 40;
-      const topArrowCode = 38;
-      const leftArrowCode = 37;
-      const enterCode = 13;
-      const deleteCode = 8;
+  const taskFieldsKeyboardNavigation = useCallback(
+    (event, fieldValue: string): void => {
       const form = formRef.current;
 
       if (form) {
@@ -60,7 +67,6 @@ const Blank = (props: IBlankProps) => {
         // if form html structure will be changed it's possible to crash
         const prevInput = form.elements[index - 2];
         const nextInput = form.elements[index + 2];
-        const firstInput = form.elements[0];
         const currentInput = form.elements[index];
 
         if (fieldValue === "") {
@@ -73,8 +79,9 @@ const Blank = (props: IBlankProps) => {
 
         switch (event.keyCode) {
           case enterCode:
+            event.preventDefault();
+
             if (nextInput) {
-              event.preventDefault();
               setCurrentCarretPosition(nextInput);
               nextInput.focus();
             }
@@ -82,16 +89,10 @@ const Blank = (props: IBlankProps) => {
             break;
           case deleteCode:
             //  why used uncotrolled acrtion? - currentInput
-            if (currentInput.value.length === 0) {
+            if (currentInput.value.length === 0 && prevInput) {
               event.preventDefault();
-
-              if (firstInput === document.activeElement) {
-                triggerInput(firstInput);
-                form.elements[0].focus();
-              } else {
-                triggerInput(currentInput);
-                prevInput.focus();
-              }
+              triggerInput(currentInput);
+              prevInput.focus();
             }
 
             break;
@@ -127,18 +128,34 @@ const Blank = (props: IBlankProps) => {
     []
   );
 
-  useLayoutEffect(() => {
-    nextFocusInput.index &&
-      formRef.current.elements[nextFocusInput.index]?.focus();
+  useEffect(() => {
+    if (nextFocusInput.index !== null) {
+      formRef.current.elements[nextFocusInput.index].focus();
+    }
   }, [nextFocusInput]);
+
+  useEffect(() => {
+    const initialFocus = () => {
+      const firstInput = formRef.current.elements[0];
+      const todayBlank = formRef && blankData.timeStatus === "present";
+      if (todayBlank && !firstInput.value) {
+        firstInput.focus();
+      }
+    };
+    initialFocus();
+  }, [blankData.timeStatus]);
+
+  useSaveData(blankData, () => onSave(blankData));
 
   return (
     <div className={`blank ${blankData.timeStatus}`}>
-      <h2 className="week-day">{weekDay}</h2>
+      <h2 className="week-day">{dayOfWeek}</h2>
       <p className="date">{blankData.date}</p>
+
       <AdditionalPopup data={blankData} onFieldChange={configData} />
+
       <form className="fields-list scroll" ref={formRef}>
-        {blankData.tasks.map((task: ITask, index: number) => {
+        {blankData.tasks.map((task, index) => {
           return (
             <TaskField
               data={task}
@@ -155,4 +172,4 @@ const Blank = (props: IBlankProps) => {
   );
 };
 
-export default React.memo(Blank);
+export default Blank;

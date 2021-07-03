@@ -6,7 +6,7 @@ import { IBlank } from "constants/types";
 
 import {
   timeFormat,
-  weekDaysCount,
+  daysOfTheWeek,
   LSDataName,
   LSLastUpdateDateName,
   updateStorage,
@@ -70,7 +70,7 @@ const Board = () => {
 
   const onSlideEnded = () => {
     const lastSlideDate = appData[appData.length - 1].date;
-    addNewBlanks(createBlanksByCount(weekDaysCount, lastSlideDate));
+    addNewBlanks(createBlanksByCount(daysOfTheWeek, lastSlideDate));
   };
 
   const todaySlideIndex = appData.findIndex((item: IBlank) =>
@@ -79,8 +79,8 @@ const Board = () => {
 
   useEffect(() => {
     const initialApp = () => {
-      if (appData.length < weekDaysCount) {
-        addNewBlanks(createBlanksByCount(weekDaysCount));
+      if (appData.length < daysOfTheWeek) {
+        addNewBlanks(createBlanksByCount(daysOfTheWeek));
       }
     };
     const updateAppData = (data: IBlank[]) => {

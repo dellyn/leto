@@ -1,24 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { inputFieldValidationRegEx } from "constants/constants";
 
 export const AdditionalPopup = (props: any) => {
-  const { data } = props;
+  const { data, onFieldChange } = props;
 
   const [value, setValue] = useState(data.additionalInfo.label);
   const [isOpen, setIsOpen] = useState(false);
-  const handleTextAreaChange = (event: any) => {
+  const textareaRef = useRef(null);
+
+  const handleTextAreaChange = (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     const value = event.target.value.replace(inputFieldValidationRegEx, " ");
     setValue(value);
 
-    props.onFieldChange({
+    onFieldChange({
       name: event.target.name,
       value: { label: value },
     });
   };
-  const handleOpenPopup = (e: any) => {
-    console.log(e);
+  const handleOpenPopup = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea && isOpen) {
+      textarea.focus();
+      textarea.selectionStart = textarea.value.length;
+    }
+  }, [textareaRef, isOpen]);
 
   return (
     <div className={`additional ${isOpen ? "active" : ""}`}>
@@ -37,6 +48,7 @@ export const AdditionalPopup = (props: any) => {
             value={value}
             onChange={handleTextAreaChange}
             placeholder="Reminder..."
+            ref={textareaRef}
           ></textarea>
         </div>
       </div>

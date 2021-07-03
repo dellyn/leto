@@ -58,6 +58,7 @@ const InputField = (props: IInputFieldProps) => {
         value={fieldValue}
         onChange={onTextChange}
         onKeyDown={handleEnter}
+        title={fieldValue}
       />
       <div className="custom-checkbox">
         <input
