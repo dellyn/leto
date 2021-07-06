@@ -6,4 +6,5 @@ export interface ITaskFieldProps {
   listCounter: number;
   onFieldChange: (data: IUpdModel) => void;
   handleKeyNavigation: (event: any, value?: string) => void;
+  active: boolean;
 }

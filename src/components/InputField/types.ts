@@ -7,4 +7,5 @@ export interface IInputFieldProps {
   onBlur?: () => void;
   onFieldChange?: (data: ITaskData) => void;
   handleKeyNavigation?: (event: IInputKeyNavEvent, value?: string) => void;
+  active: boolean;
 }

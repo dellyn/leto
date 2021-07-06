@@ -12,7 +12,6 @@ import {
 } from "./constants";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.scss";
-import "./Carousel.scss";
 
 SwiperCore.use([Navigation]);
 

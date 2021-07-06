@@ -1,7 +1,9 @@
+@import "constants/styles.scss";
+
 .board {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  margin-top: -50px;
+  margin-top: -$swiperTopPadding;
 }

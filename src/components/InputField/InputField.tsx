@@ -33,8 +33,11 @@ const InputField = (props: IInputFieldProps) => {
     }
   };
 
+  const configClass = ` ${checkedStatus ? "done" : ""} ${
+    props.active ? "active" : "inactive"
+  }`;
   return (
-    <div className={`input-field ${checkedStatus ? "done" : ""}`}>
+    <div className={`input-field ${configClass}`}>
       <span className="list-counter">{listCounter + 1}.</span>
       <input
         className="text"

@@ -22,6 +22,7 @@ export interface ITaskData {
   value: string | number | boolean;
   id?: number;
 }
+
 export interface SomeTime {
   aMoment: Moment;
 }

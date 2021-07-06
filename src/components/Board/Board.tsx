@@ -21,10 +21,12 @@ const Board = () => {
   const configTimeStatus = (newModel: IBlank, date: string) => {
     const isDayInPast = moment(date).isBefore(currentDate);
     const isDayInFuture = moment(date).isAfter(currentDate);
+    const isDayInPresent = moment(date).isSame(currentDate);
     if (isDayInPast) newModel.timeStatus = "past";
     else if (isDayInFuture) newModel.timeStatus = "future";
-    else newModel.timeStatus = "present";
-
+    else if (isDayInPresent) {
+      newModel.timeStatus = "present";
+    }
     return newModel;
   };
 
@@ -114,7 +116,6 @@ const Board = () => {
           onSlideEnded={onSlideEnded}
           slidesCount={appData.length}
           todaySlideIndex={todaySlideIndex}
-          handleKeyNavigation={() => {}}
         />
       </div>
     </>

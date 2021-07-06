@@ -153,6 +153,7 @@ const Blank = (props: IBlankProps) => {
               blankId={blankData.id}
               onFieldChange={configData}
               handleKeyNavigation={taskFieldsKeyboardNavigation}
+              active={index !== blankData.tasks.length - 1}
             />
           );
         })}

@@ -1,9 +1,17 @@
 import InputField from "../InputField/InputField";
 import { ITaskData } from "constants/types";
 import { ITaskFieldProps } from "./types";
+import "./styles.scss";
+
 const TaskField = (props: ITaskFieldProps) => {
-  const { onFieldChange, data, handleKeyNavigation, listCounter, blankId } =
-    props;
+  const {
+    onFieldChange,
+    data,
+    handleKeyNavigation,
+    listCounter,
+    blankId,
+    active,
+  } = props;
 
   const onTaskChange = (task: ITaskData) => {
     const updatedData = { ...data, [task.name]: task.value };
@@ -11,7 +19,7 @@ const TaskField = (props: ITaskFieldProps) => {
   };
 
   return (
-    <div className="task-field">
+    <div className={`task-field ${active ? "active" : "inactive"}`}>
       <InputField
         data={data}
         key={data.id}
@@ -19,6 +27,7 @@ const TaskField = (props: ITaskFieldProps) => {
         handleKeyNavigation={handleKeyNavigation}
         listCounter={listCounter}
         blankId={blankId}
+        active={active}
       />
     </div>
   );

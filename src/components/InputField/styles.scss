@@ -1,4 +1,4 @@
-@import "../../constants//styles.scss";
+@import "constants/styles.scss";
 
 .task-field {
   width: 100%;
@@ -8,6 +8,7 @@
     display: flex;
     width: 100%;
     margin-top: 5px;
+    font-size: inherit;
 
     .list-counter {
       width: 20px;
@@ -19,11 +20,12 @@
       box-sizing: border-box;
       border: none;
       outline: none;
-      border-bottom: 2px solid rgb(202, 202, 202);
-      font-size: 14px;
+      border-bottom: 2px solid $grey;
       padding-top: 10px;
       margin: 0px 8px;
+      font-size: inherit;
       width: 100%;
+      font-family: "Montserrat";
     }
     &.done {
       input.text {

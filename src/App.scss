@@ -50,17 +50,10 @@ h1 {
 }
 .head-title {
   font-size: 35px;
-  color: #fff;
-  background-color: #c0d9ff;
-  position: absolute;
-  left: 50%;
-  top: 0px;
-  transform: translate(-50%, 0);
-  box-shadow: 0px 0px 0px 3px #fff;
   padding: 2px;
 }
 
-@media screen and(max-width: 1400px) {
+@media screen and(max-width: $lg) {
   .container {
     width: 100%;
   }
