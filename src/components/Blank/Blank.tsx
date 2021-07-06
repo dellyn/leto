@@ -1,24 +1,14 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-} from "react";
+import { useRef, useState, useEffect } from "react";
 import moment from "moment";
-import useSaveData from "../../helpers/useMount";
-import { controlNumberOfTasks } from "helpers/helpers";
 import TaskField from "components/TaskField/TaskField";
+import useSaveData from "helpers/useMount";
+import { AdditionalPopup } from "components/AdditionalPopup/AdditionalPopup";
+import { keyCodes } from "./constants";
+import { controlNumberOfTasks, triggerInput } from "helpers/helpers";
 import { IBlank, ITask, IUpdModel, IInputKeyNavEvent } from "constants/types";
 import { IBlankProps } from "./types";
-import { triggerInput } from "helpers/helpers";
-import { AdditionalPopup } from "../AdditionalPopup/AdditionalPopup";
 
 import "./styles.scss";
-
-const bottomArrowCode = 40;
-const topArrowCode = 38;
-const leftArrowCode = 37;
-const enterCode = 13;
-const deleteCode = 8;
 
 const Blank = (props: IBlankProps) => {
   const { data, onSave } = props;
@@ -80,7 +70,7 @@ const Blank = (props: IBlankProps) => {
       };
 
       switch (event.keyCode) {
-        case enterCode:
+        case keyCodes.enter:
           event.preventDefault();
 
           if (nextInput) {
@@ -89,8 +79,7 @@ const Blank = (props: IBlankProps) => {
           }
 
           break;
-        case deleteCode:
-          //  why used uncotrolled acrtion? - currentInput
+        case keyCodes.delete:
           if (currentInput.value.length === 0 && prevInput) {
             event.preventDefault();
             triggerInput(currentInput);
@@ -98,7 +87,7 @@ const Blank = (props: IBlankProps) => {
           }
 
           break;
-        case topArrowCode:
+        case keyCodes.topArrow:
           if (prevInput) {
             event.preventDefault();
             setCurrentCarretPosition(prevInput);
@@ -106,7 +95,7 @@ const Blank = (props: IBlankProps) => {
           }
 
           break;
-        case bottomArrowCode:
+        case keyCodes.bottomArrow:
           if (nextInput) {
             event.preventDefault();
             setCurrentCarretPosition(nextInput);
@@ -114,10 +103,10 @@ const Blank = (props: IBlankProps) => {
           }
 
           break;
-        case leftArrowCode:
+        case keyCodes.leftArrow:
           if (currentInputCarretPosition === 0 && prevInput) {
             event.preventDefault();
-            prevInput.selectionStart = 999;
+            prevInput.selectionStart = prevInput.value.length;
             prevInput.focus();
           }
 

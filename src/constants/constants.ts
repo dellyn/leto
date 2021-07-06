@@ -28,3 +28,10 @@ export const blankDefaultModel: IBlank = {
     label: "",
   },
 };
+
+export const screenSize = {
+  lg: 1400,
+  md: 1100,
+  sm: 900,
+  xs: 650,
+};

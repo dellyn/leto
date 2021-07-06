@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import moment from "moment";
 import CarouselComponent from "../Carousel/Carousel";
 import { blankDefaultModel } from "../../constants/constants";

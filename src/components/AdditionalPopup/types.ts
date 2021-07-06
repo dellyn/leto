@@ -1,4 +1,4 @@
-import { IBlank, ITask, IUpdModel } from "constants/types";
+import { IBlank, IUpdModel } from "constants/types";
 
 export interface IAdditionalPopupProps {
   data: IBlank;

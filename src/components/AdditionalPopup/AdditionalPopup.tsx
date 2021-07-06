@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { inputFieldValidationRegEx } from "constants/constants";
+import { IAdditionalPopupProps } from "./types";
+
 import "./styles.scss";
 
-export const AdditionalPopup = (props: any) => {
+export const AdditionalPopup = (props: IAdditionalPopupProps) => {
   const { data, onFieldChange } = props;
 
   const [value, setValue] = useState(data.additionalInfo.label);

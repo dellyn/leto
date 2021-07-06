@@ -41,7 +41,9 @@ export const triggerInput = (inputField: any, enteredValue = "") => {
   input.value = enteredValue;
 
   const event = new Event("input", { bubbles: true });
-  const tracker = input._valueTracker;
+  const tracker = input._valueTracker!;
+
+  console.log(tracker);
 
   if (tracker) {
     tracker.setValue(lastValue);
