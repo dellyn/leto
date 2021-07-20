@@ -4,6 +4,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin-top: -$swiperTopPadding;
+}
+
+@media screen and (max-width: $sm) {
+  .board {
+    margin-top: -50px;
+  }
 }

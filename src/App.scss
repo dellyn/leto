@@ -53,8 +53,20 @@ h1 {
   padding: 2px;
 }
 
+input,
+textarea {
+  font-family: "Montserrat", "sans-serif";
+}
+
 @media screen and(max-width: $lg) {
   .container {
     width: 100%;
+  }
+}
+
+@media screen and(max-width: $sm) {
+  input,
+  textarea {
+    font-size: 16px;
   }
 }

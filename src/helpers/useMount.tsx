@@ -4,8 +4,6 @@ const useActionAfterMount = (deps: any, callback: any) => {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    console.log("callback", isMounted.current);
-
     if (isMounted.current) {
       const timeout = setTimeout(() => {
         callback();
