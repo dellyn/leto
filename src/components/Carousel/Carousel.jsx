@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Blank from "../Blank/Blank";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation } from "swiper";
 import useWindowDimensions from "helpers/useWindowDimensions";

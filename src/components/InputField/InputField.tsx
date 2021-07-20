@@ -6,8 +6,7 @@ import "./styles.scss";
 import "./checkbox.scss";
 
 const InputField = (props: IInputFieldProps) => {
-  const { data, onFieldChange, listCounter, handleKeyNavigation, blankId } =
-    props;
+  const { data, onFieldChange, handleKeyNavigation, blankId } = props;
 
   const [fieldValue, setFieldValue] = useState(data.label);
   const [checkedStatus, setCheckedStatus] = useState<boolean>(data.done);
@@ -25,6 +24,7 @@ const InputField = (props: IInputFieldProps) => {
     handleKeyNavigation(e, value);
     setFieldValue(value);
   };
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const onDoneStatusChange = () => {
     if (fieldValue) {
@@ -33,12 +33,22 @@ const InputField = (props: IInputFieldProps) => {
     }
   };
 
-  const configClass = ` ${checkedStatus ? "done" : ""} ${
+  const handleBlur = () => {
+    setIsDisabled(true);
+  };
+
+  const configClass = `${checkedStatus ? "done" : ""} ${
     props.active ? "active" : "inactive"
   }`;
+
+  const onTaskEdit = (e: any) => {
+    e.stopPropagation();
+    e.target.selectionStart = e.target.value?.length;
+    setIsDisabled(false);
+  };
+
   return (
-    <div className={`input-field ${configClass}`}>
-      <span className="list-counter">{listCounter + 1}.</span>
+    <div className={`input-field ${configClass}`} onClick={onDoneStatusChange}>
       <input
         className="text"
         name="taskField"
@@ -46,8 +56,19 @@ const InputField = (props: IInputFieldProps) => {
         onChange={onTextChange}
         onKeyDown={handleKeyNavigation}
         title={fieldValue}
+        onClick={(e) => e.stopPropagation()}
+        disabled={isDisabled}
+        id={`input${blankId}${data.id}`}
+        onBlur={handleBlur}
       />
-      <div className="custom-checkbox">
+      <label
+        htmlFor={`input${blankId}${data.id}`}
+        className="btn edit-btn"
+        onClick={onTaskEdit}
+      >
+        &#9998;
+      </label>
+      {/* <div className="custom-checkbox">
         <input
           id={`checkboxId${blankId}${data.id}`}
           type="checkbox"
@@ -57,7 +78,7 @@ const InputField = (props: IInputFieldProps) => {
         <label htmlFor={`checkboxId${blankId}${data.id}`}>
           <span></span>
         </label>
-      </div>
+      </div> */}
     </div>
   );
 };

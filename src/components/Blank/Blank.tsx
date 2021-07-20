@@ -50,13 +50,14 @@ const Blank = (props: IBlankProps) => {
     fieldValue: string
   ) => {
     const form = formRef.current;
+    console.log(event);
 
     if (form) {
       // currentTarget vs target
       const currentInputCarretPosition = event.currentTarget.selectionStart!;
       const index = Array.prototype.indexOf.call(form, event.target);
       // if form html structure will be changed it's possible to crash
-      const inputsStep = 2;
+      const inputsStep = 1;
       const prevInput = form.elements[index - inputsStep];
       const nextInput = form.elements[index + inputsStep];
       const currentInput = form.elements[index];

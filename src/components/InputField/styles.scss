@@ -2,12 +2,13 @@
 
 .task-field {
   width: 100%;
-
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   .input-field {
     align-items: flex-end;
     display: flex;
     width: 100%;
-    margin-top: 5px;
     font-size: inherit;
 
     .list-counter {
@@ -24,6 +25,10 @@
       padding-top: 10px;
       margin: 0px 8px;
       width: 100%;
+      cursor: pointer;
+      &:disabled {
+        background: transparent;
+      }
     }
     &.done {
       input.text {
@@ -32,4 +37,14 @@
       }
     }
   }
+}
+.task-field.edit {
+  .input-field {
+    input.text {
+      cursor: initial;
+    }
+  }
+}
+
+.edit-btn {
 }

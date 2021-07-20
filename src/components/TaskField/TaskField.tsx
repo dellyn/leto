@@ -14,20 +14,16 @@ const TaskField = (props: ITaskFieldProps) => {
     active,
   } = props;
 
-  const [isEdit, setIsEdit] = useState(false);
-
   const onTaskChange = (task: ITaskData) => {
     const updatedData = { ...data, [task.name]: task.value };
     onFieldChange({ name: "tasks", value: updatedData });
   };
 
-  const onTaskEdit = () => {
-    setIsEdit(!isEdit);
-  };
-  const onDragAndDrop = () => {};
+  const configClass = `${active ? "active" : "inactive"}  `;
 
   return (
-    <div className={`task-field ${active ? "active" : "inactive"}`}>
+    <div className={`task-field ${configClass}`}>
+      <span className="list-counter">{listCounter + 1}.</span>
       <InputField
         data={data}
         key={data.id}
@@ -37,8 +33,6 @@ const TaskField = (props: ITaskFieldProps) => {
         blankId={blankId}
         active={active}
       />
-      <span onClick={onTaskEdit}>edit</span>
-      <span onClick={onDragAndDrop}>move</span>
     </div>
   );
 };
