@@ -1,12 +1,12 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import moment from "moment";
 import TaskField from "components/TaskField/TaskField";
-import useSaveData from "helpers/useMount";
+import useSaveData from "hooks/useMount";
 import { AdditionalPopup } from "components/AdditionalPopup/AdditionalPopup";
-import { keyCodes } from "./constants";
-import { controlNumberOfTasks, triggerInput } from "helpers/helpers";
-import { IBlank, ITask, IUpdModel, IInputKeyNavEvent } from "constants/types";
+import { controlNumberOfTasks } from "helpers/helpers";
+import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
+import useKeyboardNavigation from "../../hooks/useKeyboardNavigation";
 
 import "./styles.scss";
 
@@ -24,9 +24,8 @@ const Blank = (props: IBlankProps) => {
   const dayOfWeek = moment(blankData.date).format("dddd");
 
   const formRef = useRef(null);
-  const [nextFocusInput, setNextFocusInputAfterDelete] = useState({
-    index: null,
-  });
+  const { nextFocusInput, handleKeyNavigation } =
+    useKeyboardNavigation(formRef);
 
   const configData = (model: IUpdModel) => {
     if (model.name === "tasks") {
@@ -43,82 +42,6 @@ const Blank = (props: IBlankProps) => {
       setBlankData((prevData) => {
         return { ...prevData, [model.name]: model.value };
       });
-    }
-  };
-
-  const taskFieldsKeyboardNavigation = (
-    event: IInputKeyNavEvent,
-    fieldValue: string
-  ) => {
-    const form = formRef.current;
-
-    if (form) {
-      // currentTarget vs target
-      const currentInputCarretPosition = event.currentTarget.selectionStart!;
-      const index = Array.prototype.indexOf.call(form, event.target);
-      // if form html structure will be changed it's possible to crash
-      const inputsStep = 1;
-      const prevInput = form.elements[index - inputsStep];
-      const nextInput = form.elements[index + inputsStep];
-      const currentInput = form.elements[index];
-
-      if (fieldValue === "") {
-        setNextFocusInputAfterDelete({ index });
-      }
-
-      const regularActions = (
-        input: HTMLInputElement,
-        cursorPos?: number,
-        inputForTrigger?: HTMLInputElement
-      ) => {
-        event.preventDefault();
-        input.disabled = false;
-        if (inputForTrigger) triggerInput(inputForTrigger);
-        if (cursorPos) input.selectionStart = cursorPos;
-        input.focus();
-      };
-      switch (event.keyCode) {
-        case keyCodes.enter:
-          if (nextInput) {
-            regularActions(nextInput, nextInput.value?.length);
-          }
-
-          break;
-        case keyCodes.delete:
-          //  if we start deleting from the last task, we go up, and if we delete the first task, we go down to the last one.
-
-          // if (nextInput) {
-          //   if (currentInput.value.length === 1) {
-          //     setIsDisabled(false);
-          //     regularActions(nextInput, nextInput.value?.length, currentInput);
-          //   }
-          // } else
-          if (currentInput.value.length === 0 && prevInput) {
-            regularActions(prevInput, prevInput.value?.length, currentInput);
-          }
-
-          break;
-        case keyCodes.topArrow:
-          if (prevInput) {
-            regularActions(prevInput, prevInput.value?.length);
-          }
-
-          break;
-        case keyCodes.bottomArrow:
-          if (nextInput) {
-            regularActions(nextInput, nextInput.value?.length);
-          }
-
-          break;
-        case keyCodes.leftArrow:
-          if (currentInputCarretPosition === 0 && prevInput) {
-            regularActions(prevInput, prevInput.value?.length);
-          }
-
-          break;
-        default:
-          break;
-      }
     }
   };
 
@@ -147,7 +70,6 @@ const Blank = (props: IBlankProps) => {
   }, []);
 
   useSaveData(blankData, () => onSave(blankData));
-
   return (
     <div className={`blank ${blankData.timeStatus}`}>
       <h2 className="week-day">{dayOfWeek}</h2>
@@ -164,7 +86,7 @@ const Blank = (props: IBlankProps) => {
               listCounter={index}
               blankId={blankData.id}
               onFieldChange={configData}
-              handleKeyNavigation={taskFieldsKeyboardNavigation}
+              handleKeyNavigation={handleKeyNavigation}
               active={index !== blankData.tasks.length - 1}
             />
           );

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Blank from "../Blank/Blank";
-
-import useWindowDimensions from "helpers/useWindowDimensions";
+import useWindowDimensions from "hooks/useWindowDimensions";
 import { screenSize } from "constants/constants";
 import {
   desktopSettings,
@@ -16,7 +15,6 @@ import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.scss";
 
 import "./styles.scss";
-import arrowImg from "../../img/arrow-right.svg";
 
 SwiperCore.use([Navigation]);
 
