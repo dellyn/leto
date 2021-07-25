@@ -109,14 +109,18 @@ const Board = () => {
 
   return (
     <>
-      <div className="board">
-        <CarouselComponent
-          data={appData}
-          onSave={onSave}
-          onSlideEnded={onSlideEnded}
-          slidesCount={appData.length}
-          todaySlideIndex={todaySlideIndex}
-        />
+      <div className="board-wrapper">
+        <div className="container">
+          <div className="board">
+            <CarouselComponent
+              data={appData}
+              onSave={onSave}
+              onSlideEnded={onSlideEnded}
+              slidesCount={appData.length}
+              todaySlideIndex={todaySlideIndex}
+            />
+          </div>
+        </div>
       </div>
     </>
   );

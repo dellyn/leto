@@ -1,15 +1,10 @@
+@import "constants/styles.scss";
+
 .btnSlide {
   width: 40px;
   height: 40px;
-  background: black;
   mask: url(../../img/arrow-right.svg);
-  mask-size: cover;
-  position: absolute;
   top: 50px;
-  cursor: pointer;
-  &:hover {
-    background: red;
-  }
 }
 .btnPrevSlide {
   left: -50px;
@@ -17,4 +12,20 @@
 }
 .btnNextSlide {
   right: -50px;
+}
+.home-page {
+  width: 25px;
+  height: 25px;
+  mask: url(../../img/home-page.svg);
+  top: 100px;
+  left: -42px;
+}
+.nav-btn {
+  background: black;
+  mask-size: cover;
+  position: absolute;
+  cursor: pointer;
+  &:hover {
+    background: $hot;
+  }
 }

@@ -1,4 +1,10 @@
-.head-title {
-  font-size: 35px;
-  padding: 2px;
+@import "constants/styles.scss";
+
+header {
+  background-color: $hot;
+  .head-title {
+    font-size: 35px;
+    padding: 2px;
+    text-align: center;
+  }
 }

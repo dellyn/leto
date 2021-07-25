@@ -20,19 +20,23 @@ SwiperCore.use([Navigation]);
 
 const CarouselComponent = (props) => {
   const { todaySlideIndex } = props;
+  const [swiperData, setSwiperData] = useState({
+    activeIndex: null,
+    swiper: null,
+  });
 
   const { width } = useWindowDimensions();
   const initSettings = width < screenSize.xs ? mobileSettings : desktopSettings;
   const [settings, setSettings] = useState(initSettings);
 
   const onSwiper = (swiper) => {
+    console.log("onSwiper");
     const initFocusSlide =
       width < screenSize.xs ? todaySlideIndex : todaySlideIndex - 1;
     swiper.slideTo(initFocusSlide, 0);
   };
-
-  const handleChange = () => {
-    props.onSlideEnded();
+  const navToHome = () => {
+    swiperData?.swiper.slideTo(todaySlideIndex - 1, 0);
   };
 
   useEffect(() => {
@@ -52,15 +56,24 @@ const CarouselComponent = (props) => {
     }
   }, [width]);
 
+  const handleSlideChange = (swiper) => {
+    setSwiperData({ activeIndex: swiper.activeIndex, swiper });
+  };
+
+  const activeSlideNotToday = swiperData.activeIndex + 1 !== todaySlideIndex;
+
   return (
     <>
-      <span className={`btnSlide ${prevBtnClass}`}></span>
+      <span className={`nav-btn btnSlide ${prevBtnClass}`}></span>
+      {activeSlideNotToday && (
+        <span className="nav-btn home-page" onClick={navToHome}></span>
+      )}
       <Swiper
         {...settings}
         onSwiper={onSwiper}
         pagination={true}
         navigation={{ nextEl: `.${nextBtnClass}`, prevEl: `.${prevBtnClass}` }}
-        onReachEnd={handleChange}
+        onSlideChange={handleSlideChange}
       >
         {props.data.map((data, idx) => {
           return (
@@ -71,7 +84,7 @@ const CarouselComponent = (props) => {
         })}
       </Swiper>
 
-      <span className={`btnSlide ${nextBtnClass}`}></span>
+      <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
     </>
   );
 };

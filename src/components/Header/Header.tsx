@@ -4,7 +4,9 @@ import "./styles.scss";
 const Header = () => {
   return (
     <header>
-      <h1 className="head-title">LETO</h1>
+      <div className="container">
+        <h1 className="head-title">LETO</h1>
+      </div>
     </header>
   );
 };
