@@ -3,9 +3,12 @@ import React from "react";
 import "./styles.scss";
 const Header = () => {
   return (
-    <header>
+    <header className="header-wrapper">
       <div className="container">
-        <h1 className="head-title">LETO</h1>
+        <div className="header">
+          <h1 className="head-title">LETO</h1>
+          <div className="account">Ingvar</div>
+        </div>
       </div>
     </header>
   );
