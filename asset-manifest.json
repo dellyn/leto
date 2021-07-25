@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/leto/static/css/main.145ed0a6.chunk.css",
-    "main.js": "/leto/static/js/main.58f9da4b.chunk.js",
-    "main.js.map": "/leto/static/js/main.58f9da4b.chunk.js.map",
+    "main.css": "/leto/static/css/main.81d42f3b.chunk.css",
+    "main.js": "/leto/static/js/main.1b671061.chunk.js",
+    "main.js.map": "/leto/static/js/main.1b671061.chunk.js.map",
     "runtime-main.js": "/leto/static/js/runtime-main.f2f21784.js",
     "runtime-main.js.map": "/leto/static/js/runtime-main.f2f21784.js.map",
     "static/css/2.d18cf081.chunk.css": "/leto/static/css/2.d18cf081.chunk.css",
-    "static/js/2.cafb9c15.chunk.js": "/leto/static/js/2.cafb9c15.chunk.js",
-    "static/js/2.cafb9c15.chunk.js.map": "/leto/static/js/2.cafb9c15.chunk.js.map",
+    "static/js/2.4d865b88.chunk.js": "/leto/static/js/2.4d865b88.chunk.js",
+    "static/js/2.4d865b88.chunk.js.map": "/leto/static/js/2.4d865b88.chunk.js.map",
     "index.html": "/leto/index.html",
     "static/css/2.d18cf081.chunk.css.map": "/leto/static/css/2.d18cf081.chunk.css.map",
-    "static/css/main.145ed0a6.chunk.css.map": "/leto/static/css/main.145ed0a6.chunk.css.map",
-    "static/js/2.cafb9c15.chunk.js.LICENSE.txt": "/leto/static/js/2.cafb9c15.chunk.js.LICENSE.txt"
+    "static/css/main.81d42f3b.chunk.css.map": "/leto/static/css/main.81d42f3b.chunk.css.map",
+    "static/js/2.4d865b88.chunk.js.LICENSE.txt": "/leto/static/js/2.4d865b88.chunk.js.LICENSE.txt",
+    "static/media/styles.scss": "/leto/static/media/home-page.14fc9b39.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f2f21784.js",
     "static/css/2.d18cf081.chunk.css",
-    "static/js/2.cafb9c15.chunk.js",
-    "static/css/main.145ed0a6.chunk.css",
-    "static/js/main.58f9da4b.chunk.js"
+    "static/js/2.4d865b88.chunk.js",
+    "static/css/main.81d42f3b.chunk.css",
+    "static/js/main.1b671061.chunk.js"
   ]
 }
