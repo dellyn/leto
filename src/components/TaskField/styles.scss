@@ -11,6 +11,9 @@
       cursor: text;
     }
   }
+  &:first-child {
+    opacity: 1 !important;
+  }
   &.active input {
     cursor: pointer;
   }

@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import moment from "moment";
 import TaskField from "components/TaskField/TaskField";
 import useSaveData from "helpers/useMount";
@@ -20,6 +20,8 @@ const Blank = (props: IBlankProps) => {
     timeStatus: data.timeStatus,
     additionalInfo: data.additionalInfo,
   });
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
   const dayOfWeek = moment(blankData.date).format("dddd");
 
   const formRef = useRef(null);
@@ -53,7 +55,6 @@ const Blank = (props: IBlankProps) => {
 
     if (form) {
       // currentTarget vs target
-
       const currentInputCarretPosition = event.currentTarget.selectionStart!;
       const index = Array.prototype.indexOf.call(form, event.target);
       // if form html structure will be changed it's possible to crash
@@ -66,60 +67,53 @@ const Blank = (props: IBlankProps) => {
         setNextFocusInputAfterDelete({ index });
       }
 
-      const setCurrentCarretPosition = (el: HTMLInputElement) => {
-        el.selectionEnd = el.selectionStart = currentInputCarretPosition;
+      const regularActions = (
+        input: HTMLInputElement,
+        cursorPos?: number,
+        inputForTrigger?: HTMLInputElement
+      ) => {
+        event.preventDefault();
+        input.disabled = false;
+        if (inputForTrigger) triggerInput(inputForTrigger);
+        if (cursorPos) input.selectionStart = cursorPos;
+        input.focus();
       };
-      if (
-        event.keyCode === keyCodes.enter ||
-        event.keyCode === keyCodes.topArrow ||
-        event.keyCode === keyCodes.leftArrow ||
-        event.keyCode === keyCodes.bottomArrow
-      ) {
-        // console.log("KEYS NAV", form.elements);
-      }
-
       switch (event.keyCode) {
         case keyCodes.enter:
-          event.preventDefault();
           if (nextInput) {
-            setCurrentCarretPosition(nextInput);
-            nextInput.focus();
+            regularActions(nextInput, nextInput.value?.length);
           }
 
           break;
         case keyCodes.delete:
+          //  if we start deleting from the last task, we go up, and if we delete the first task, we go down to the last one.
+
+          // if (nextInput) {
+          //   if (currentInput.value.length === 1) {
+          //     setIsDisabled(false);
+          //     regularActions(nextInput, nextInput.value?.length, currentInput);
+          //   }
+          // } else
           if (currentInput.value.length === 0 && prevInput) {
-            event.preventDefault();
-            prevInput.disabled = false;
-            triggerInput(currentInput);
-            prevInput.focus();
+            regularActions(prevInput, prevInput.value?.length, currentInput);
           }
 
           break;
         case keyCodes.topArrow:
           if (prevInput) {
-            event.preventDefault();
-            prevInput.disabled = false;
-            setCurrentCarretPosition(prevInput);
-            prevInput.focus();
+            regularActions(prevInput, prevInput.value?.length);
           }
 
           break;
         case keyCodes.bottomArrow:
           if (nextInput) {
-            event.preventDefault();
-            nextInput.disabled = false;
-            setCurrentCarretPosition(nextInput);
-            nextInput.focus();
+            regularActions(nextInput, nextInput.value?.length);
           }
 
           break;
         case keyCodes.leftArrow:
           if (currentInputCarretPosition === 0 && prevInput) {
-            event.preventDefault();
-            prevInput.disabled = false;
-            prevInput.selectionStart = prevInput.value.length;
-            prevInput.focus();
+            regularActions(prevInput, prevInput.value?.length);
           }
 
           break;
@@ -144,7 +138,6 @@ const Blank = (props: IBlankProps) => {
         const lastInput = form.elements[form.elements.length - 1];
 
         if (!firstInput.value) {
-          firstInput.disabled = false;
           firstInput.focus();
         } else {
           lastInput.focus();
@@ -173,10 +166,7 @@ const Blank = (props: IBlankProps) => {
               blankId={blankData.id}
               onFieldChange={configData}
               handleKeyNavigation={taskFieldsKeyboardNavigation}
-              active={
-                index !== blankData.tasks.length - 1 ||
-                blankData.tasks.length === 1
-              }
+              active={index !== blankData.tasks.length - 1 && isDisabled}
             />
           );
         })}

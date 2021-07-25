@@ -109,7 +109,6 @@ const Board = () => {
 
   return (
     <>
-      <h1 className="head-title">LETO</h1>
       <div className="board">
         <CarouselComponent
           data={appData}

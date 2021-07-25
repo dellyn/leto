@@ -43,13 +43,9 @@ export const triggerInput = (inputField: any, enteredValue = "") => {
   const event = new Event("input", { bubbles: true });
   const tracker = input._valueTracker!;
 
-  console.log(tracker);
-
   if (tracker) {
     tracker.setValue(lastValue);
   }
 
   input.dispatchEvent(event);
 };
-
-export const controlViewSize = () => {};

@@ -4,7 +4,7 @@ import { inputFieldValidationRegEx } from "constants/constants";
 
 import "./styles.scss";
 
-type TodoClickEvent = React.MouseEvent<HTMLLabelElement, MouseEvent>;
+type TodoClickEvent<T> = React.MouseEvent<T, MouseEvent>;
 
 const TodoField = (props: IInputFieldProps) => {
   const { data, onFieldChange, handleKeyNavigation, blankId, active } = props;
@@ -42,24 +42,22 @@ const TodoField = (props: IInputFieldProps) => {
     setIsDisabled(false);
   };
 
-  const handleEditTodo = (e: TodoClickEvent) => {
+  const handleEditTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
     todoRef.current.disabled = false;
+    todoRef.current.selectionStart = todoRef.current.value?.length;
     todoRef.current.focus();
     setIsDisabled(false);
   };
-  const handleDeleteTodo = (e: TodoClickEvent) => {
+  const handleDeleteTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
     onFieldChange({ name: "done", value: false });
     onFieldChange({ name: "label", value: "" });
     setFieldValue("");
   };
 
-  const handleTodoClickEvent = (
-    e: React.SyntheticEvent<HTMLInputElement, Event>
-  ) => {
+  const handleTodoClickEvent = (e: TodoClickEvent<HTMLInputElement>) => {
     e.stopPropagation();
-    e.currentTarget.selectionStart = e.currentTarget.value?.length;
   };
 
   const configClass = `${checkedStatus ? "done" : ""}

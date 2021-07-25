@@ -1,0 +1,42 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeSpeed;
+  font-display: optional;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  background: #eaf2ff;
+}
+
+h1,
+h2,
+h3,
+header,
+section,
+footer,
+div,
+span,
+p,
+input,
+textarea,
+label,
+a {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ffffff;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6;
+  border-radius: 2px;
+}
+::-webkit-scrollbar {
+  height: 5px;
+  width: 3px;
+}
