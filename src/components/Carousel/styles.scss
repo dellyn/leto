@@ -1,8 +1,13 @@
 @import "constants/styles.scss";
 
+$arrowsWH: 35px;
+$buttonsWH: 20px;
+$buttonsTop: 10px;
+$buttonsSides: -43px;
+
 .btnSlide {
-  width: 40px;
-  height: 40px;
+  width: $arrowsWH;
+  height: $arrowsWH;
   mask: url(../../img/arrow-right.svg);
   top: -50px;
 }
@@ -14,11 +19,11 @@
   right: -50px;
 }
 .home-page {
-  width: 25px;
-  height: 25px;
+  width: $buttonsWH;
+  height: $buttonsWH;
   mask: url(../../img/home-page.svg);
-  top: 0px;
-  left: -42px;
+  top: $buttonsTop;
+  left: $buttonsSides;
 }
 .nav-btn {
   background: black;
@@ -28,4 +33,11 @@
   &:hover {
     background: $hot;
   }
+}
+.calendar {
+  width: $buttonsWH;
+  height: $buttonsWH;
+  mask: url(../../img/calendar.svg);
+  top: $buttonsTop;
+  right: $buttonsSides;
 }

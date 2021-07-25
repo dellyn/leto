@@ -83,7 +83,7 @@ const CarouselComponent = (props) => {
           );
         })}
       </Swiper>
-
+      <span className="nav-btn calendar"></span>
       <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
     </>
   );
