@@ -42,19 +42,21 @@ export const AdditionalPopup = (props: IAdditionalPopupProps) => {
       >
         ...
       </span>
-      <div className="additional-info" onMouseLeave={handleOpenPopup}>
-        <h2>Additional Info</h2>
-        <div className="content">
-          <textarea
-            name="additionalInfo"
-            id={`textarea-blank${data.id}`}
-            value={value}
-            onChange={handleTextAreaChange}
-            placeholder="Reminder..."
-            ref={textareaRef}
-          ></textarea>
+      {isOpen && (
+        <div className="additional-info" onMouseLeave={handleOpenPopup}>
+          <h2>Additional Info</h2>
+          <div className="content">
+            <textarea
+              name="additionalInfo"
+              id={`textarea-blank${data.id}`}
+              value={value}
+              onChange={handleTextAreaChange}
+              placeholder="Reminder..."
+              ref={textareaRef}
+            ></textarea>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

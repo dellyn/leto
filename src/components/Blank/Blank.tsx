@@ -144,6 +144,7 @@ const Blank = (props: IBlankProps) => {
         const lastInput = form.elements[form.elements.length - 1];
 
         if (!firstInput.value) {
+          firstInput.disabled = false;
           firstInput.focus();
         } else {
           lastInput.focus();
@@ -172,7 +173,10 @@ const Blank = (props: IBlankProps) => {
               blankId={blankData.id}
               onFieldChange={configData}
               handleKeyNavigation={taskFieldsKeyboardNavigation}
-              active={index !== blankData.tasks.length - 1}
+              active={
+                index !== blankData.tasks.length - 1 ||
+                blankData.tasks.length === 1
+              }
             />
           );
         })}

@@ -18,7 +18,7 @@ const TaskField = (props: ITaskFieldProps) => {
     onFieldChange({ name: "tasks", value: updatedData });
   };
 
-  const configClass = `${active ? "active" : "inactive"}  `;
+  const configClass = `${active ? "active" : "inactive"}`;
 
   return (
     <div className={`task-field ${configClass}`}>
