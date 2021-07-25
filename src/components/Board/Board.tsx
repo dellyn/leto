@@ -79,7 +79,7 @@ const Board = () => {
 
   useEffect(() => {
     const firstInitialApp = () => {
-      if (appData.length < daysOfTheWeek) {
+      if (appData.length <= daysOfTheWeek) {
         addNewBlanks(createBlanksByCount(daysOfTheWeek));
       }
     };
@@ -93,11 +93,12 @@ const Board = () => {
           return configTimeStatus(item, item.date);
         });
         updateStorage(updatedAppData);
+        setAppData(updatedAppData);
         localStorage.setItem(LSLastUpdateDateName, JSON.stringify(currentDate));
       }
     };
-    firstInitialApp();
     everydayUpdateApp(appData);
+    firstInitialApp();
   }, []);
 
   // custom live pagination, month and week navigation in v2

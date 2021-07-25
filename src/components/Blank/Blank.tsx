@@ -50,10 +50,10 @@ const Blank = (props: IBlankProps) => {
     fieldValue: string
   ) => {
     const form = formRef.current;
-    console.log(event);
 
     if (form) {
       // currentTarget vs target
+
       const currentInputCarretPosition = event.currentTarget.selectionStart!;
       const index = Array.prototype.indexOf.call(form, event.target);
       // if form html structure will be changed it's possible to crash
@@ -69,11 +69,18 @@ const Blank = (props: IBlankProps) => {
       const setCurrentCarretPosition = (el: HTMLInputElement) => {
         el.selectionEnd = el.selectionStart = currentInputCarretPosition;
       };
+      if (
+        event.keyCode === keyCodes.enter ||
+        event.keyCode === keyCodes.topArrow ||
+        event.keyCode === keyCodes.leftArrow ||
+        event.keyCode === keyCodes.bottomArrow
+      ) {
+        // console.log("KEYS NAV", form.elements);
+      }
 
       switch (event.keyCode) {
         case keyCodes.enter:
           event.preventDefault();
-
           if (nextInput) {
             setCurrentCarretPosition(nextInput);
             nextInput.focus();
@@ -83,6 +90,7 @@ const Blank = (props: IBlankProps) => {
         case keyCodes.delete:
           if (currentInput.value.length === 0 && prevInput) {
             event.preventDefault();
+            prevInput.disabled = false;
             triggerInput(currentInput);
             prevInput.focus();
           }
@@ -91,6 +99,7 @@ const Blank = (props: IBlankProps) => {
         case keyCodes.topArrow:
           if (prevInput) {
             event.preventDefault();
+            prevInput.disabled = false;
             setCurrentCarretPosition(prevInput);
             prevInput.focus();
           }
@@ -99,6 +108,7 @@ const Blank = (props: IBlankProps) => {
         case keyCodes.bottomArrow:
           if (nextInput) {
             event.preventDefault();
+            nextInput.disabled = false;
             setCurrentCarretPosition(nextInput);
             nextInput.focus();
           }
@@ -107,6 +117,7 @@ const Blank = (props: IBlankProps) => {
         case keyCodes.leftArrow:
           if (currentInputCarretPosition === 0 && prevInput) {
             event.preventDefault();
+            prevInput.disabled = false;
             prevInput.selectionStart = prevInput.value.length;
             prevInput.focus();
           }
@@ -126,14 +137,21 @@ const Blank = (props: IBlankProps) => {
 
   useEffect(() => {
     const initialFocus = () => {
-      const firstInput = formRef.current.elements[0];
-      const todayBlank = formRef && blankData.timeStatus === "present";
-      if (todayBlank && !firstInput.value) {
-        firstInput.focus();
+      const todayBlank = blankData.timeStatus === "present";
+      if (todayBlank && formRef) {
+        const form = formRef.current;
+        const firstInput = form.elements[0];
+        const lastInput = form.elements[form.elements.length - 1];
+
+        if (!firstInput.value) {
+          firstInput.focus();
+        } else {
+          lastInput.focus();
+        }
       }
     };
     initialFocus();
-  }, [blankData.timeStatus]);
+  }, []);
 
   useSaveData(blankData, () => onSave(blankData));
 

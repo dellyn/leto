@@ -4,8 +4,9 @@ body {
   margin: 0;
   padding: 0;
   font-size: 14px;
-  font-family: "Montserrat";
+  font-family: "Circular", sans-serif;
   background: #eaf2ff;
+  text-rendering: optimizeSpeed;
 }
 h1,
 h2,

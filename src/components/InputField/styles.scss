@@ -1,50 +1,66 @@
 @import "constants/styles.scss";
-
-.task-field {
-  width: 100%;
-  display: flex;
-  justify-content: center;
+@font-face {
+  font-family: "Circular";
+  src: local("Circular"),
+    url(../../fonts/CircularStd-Book.otf) format("opentype");
+}
+.input-field {
   align-items: flex-end;
-  .input-field {
-    align-items: flex-end;
-    display: flex;
+  display: flex;
+  width: 100%;
+  font-size: inherit;
+
+  &.enabled {
+    .todo {
+      cursor: text;
+    }
+  }
+
+  .list-counter {
+    width: 20px;
+  }
+
+  input.todo {
+    height: 30px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid $grey;
+    padding-top: 10px;
+    margin: 0px 0px 0px 8px;
     width: 100%;
-    font-size: inherit;
-
-    .list-counter {
-      width: 20px;
+    font-family: "Circular" !important;
+    font-weight: 100;
+    &:disabled {
+      background: transparent;
     }
 
-    input.text {
-      height: 30px;
-      margin: 3px 0px 0px 0px;
-      box-sizing: border-box;
-      border: none;
-      outline: none;
-      border-bottom: 2px solid $grey;
-      padding-top: 10px;
-      margin: 0px 8px;
-      width: 100%;
-      cursor: pointer;
-      &:disabled {
-        background: transparent;
-      }
+    &:hover ~ .todo-btn {
+      display: block;
     }
-    &.done {
-      input.text {
-        border-bottom: 2px solid $summerGreenColor;
-        text-decoration: line-through;
-      }
+  }
+  .todo-btn {
+    display: none;
+  }
+  &.done {
+    input.todo {
+      border-bottom: 2px solid $summerGreenColor;
+      text-decoration: line-through;
     }
   }
 }
-.task-field.edit {
-  .input-field {
-    input.text {
-      cursor: initial;
-    }
+.todo-btn {
+  // cursor: url("../../img/edit.png"), auto;
+  cursor: pointer;
+  font-size: 18px;
+  position: absolute;
+  right: 0px;
+  top: 2px;
+  transform: scale(-1, 1);
+  &:hover {
+    color: rgb(255, 115, 115);
   }
-}
-
-.edit-btn {
+  &.delete-btn {
+    font-size: 17px;
+  }
 }

@@ -1,5 +1,17 @@
 .task-field {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  position: relative;
+
   &.inactive {
     opacity: 0.5;
+    input {
+      cursor: text;
+    }
+  }
+  &.active input {
+    cursor: pointer;
   }
 }

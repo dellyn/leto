@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import Blank from "../Blank/Blank";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
 import useWindowDimensions from "helpers/useWindowDimensions";
 import { screenSize } from "constants/constants";
 import {
@@ -11,8 +9,14 @@ import {
   nextBtnClass,
   prevBtnClass,
 } from "./constants";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation } from "swiper";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.scss";
+
+import "./styles.scss";
+import arrowImg from "../../img/arrow-right.svg";
 
 SwiperCore.use([Navigation]);
 
@@ -52,8 +56,7 @@ const CarouselComponent = (props) => {
 
   return (
     <>
-      <span className={`swiper-button-prev ${prevBtnClass}`}></span>
-
+      <span className={`btnSlide ${prevBtnClass}`}></span>
       <Swiper
         {...settings}
         onSwiper={onSwiper}
@@ -69,7 +72,8 @@ const CarouselComponent = (props) => {
           );
         })}
       </Swiper>
-      <span className={`swiper-button-next ${nextBtnClass}`}></span>
+
+      <span className={`btnSlide ${nextBtnClass}`}></span>
     </>
   );
 };
