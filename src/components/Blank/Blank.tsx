@@ -20,7 +20,6 @@ const Blank = (props: IBlankProps) => {
     timeStatus: data.timeStatus,
     additionalInfo: data.additionalInfo,
   });
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
 
   const dayOfWeek = moment(blankData.date).format("dddd");
 
@@ -166,7 +165,7 @@ const Blank = (props: IBlankProps) => {
               blankId={blankData.id}
               onFieldChange={configData}
               handleKeyNavigation={taskFieldsKeyboardNavigation}
-              active={index !== blankData.tasks.length - 1 && isDisabled}
+              active={index !== blankData.tasks.length - 1}
             />
           );
         })}

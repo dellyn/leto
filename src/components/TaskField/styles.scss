@@ -1,3 +1,5 @@
+@import "constants/styles.scss";
+
 .task-field {
   width: 100%;
   display: flex;
@@ -5,8 +7,9 @@
   align-items: flex-end;
   position: relative;
 
+  // last task
   &.inactive {
-    opacity: 0.5;
+    opacity: 0.75;
     input {
       cursor: text;
     }
@@ -14,7 +17,22 @@
   &:first-child {
     opacity: 1 !important;
   }
-  &.active input {
+  &.active .todo {
     cursor: pointer;
+  }
+  .list-counter {
+    width: 10px;
+    color: #7d7d7d;
+    padding-bottom: 2px;
+  }
+  &.done {
+    .list-counter {
+      color: $checked;
+    }
+    .todo {
+      border-bottom: 2px solid $summerGreenColor;
+      text-decoration: line-through;
+      color: $checked;
+    }
   }
 }

@@ -7,10 +7,17 @@ import "./styles.scss";
 type TodoClickEvent<T> = React.MouseEvent<T, MouseEvent>;
 
 const TodoField = (props: IInputFieldProps) => {
-  const { data, onFieldChange, handleKeyNavigation, blankId, active } = props;
+  const {
+    data,
+    onFieldChange,
+    handleKeyNavigation,
+    blankId,
+    active,
+    checkedStatus,
+    setCheckedStatus,
+  } = props;
 
   const [fieldValue, setFieldValue] = useState<string>(data.label);
-  const [checkedStatus, setCheckedStatus] = useState<boolean>(data.done);
   const [isDisabled, setIsDisabled] = useState<boolean>(active);
   const todoRef = useRef<HTMLInputElement>(null);
 
@@ -20,6 +27,7 @@ const TodoField = (props: IInputFieldProps) => {
     if (value) {
       onFieldChange({ name: "label", value: value });
     } else {
+      setCheckedStatus(false);
       onFieldChange({ name: "done", value: false });
       onFieldChange({ name: "label", value: "" });
     }
@@ -51,6 +59,7 @@ const TodoField = (props: IInputFieldProps) => {
   };
   const handleDeleteTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
+    setCheckedStatus(false);
     onFieldChange({ name: "done", value: false });
     onFieldChange({ name: "label", value: "" });
     setFieldValue("");
@@ -60,8 +69,7 @@ const TodoField = (props: IInputFieldProps) => {
     e.stopPropagation();
   };
 
-  const configClass = `${checkedStatus ? "done" : ""}
-  ${isDisabled ? "disabled" : "enabled"}`;
+  const configClass = `${isDisabled ? "disabled" : "enabled"}`;
   const todoId = `input${blankId}${data.id}`;
 
   const canEditTodo = !checkedStatus && fieldValue.length > 0 && isDisabled;

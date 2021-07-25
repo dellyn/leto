@@ -2,6 +2,7 @@ import InputField from "../InputField/InputField";
 import { ITaskData } from "constants/types";
 import { ITaskFieldProps } from "./types";
 import "./styles.scss";
+import { useState } from "react";
 
 const TaskField = (props: ITaskFieldProps) => {
   const {
@@ -12,13 +13,15 @@ const TaskField = (props: ITaskFieldProps) => {
     blankId,
     active,
   } = props;
+  const [checkedStatus, setCheckedStatus] = useState<boolean>(data.done);
 
   const onTaskChange = (task: ITaskData) => {
     const updatedData = { ...data, [task.name]: task.value };
     onFieldChange({ name: "tasks", value: updatedData });
   };
 
-  const configClass = `${active ? "active" : "inactive"}`;
+  const configClass = `${active ? "active" : "inactive"}
+  ${checkedStatus ? "done" : ""}`;
 
   return (
     <div className={`task-field ${configClass}`}>
@@ -30,6 +33,8 @@ const TaskField = (props: ITaskFieldProps) => {
         handleKeyNavigation={handleKeyNavigation}
         listCounter={listCounter}
         blankId={blankId}
+        checkedStatus={checkedStatus}
+        setCheckedStatus={setCheckedStatus}
         active={active}
       />
     </div>
