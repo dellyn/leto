@@ -73,7 +73,7 @@ const Blank = (props: IBlankProps) => {
   return (
     <div className={`blank ${blankData.timeStatus}`}>
       <h2 className="week-day">{dayOfWeek}</h2>
-      <p className="date">{blankData.date}</p>
+      <p className="date">{moment(blankData.date).format("MMM DD[, ] YY")}</p>
 
       <AdditionalPopup data={blankData} onFieldChange={configData} />
 
