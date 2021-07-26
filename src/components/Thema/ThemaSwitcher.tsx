@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import { useContext, useState } from "react";
+import { ThemaContext } from "context/ThemaContext";
+
 import "./styles.scss";
 
 const ThemaSwitcher = () => {
   const [checked, setChecked] = useState(false);
-  
+  const { setThema } = useContext(ThemaContext);
   const handleChange = () => {
     setChecked(!checked);
+    setThema(checked ? "light" : "dark");
   };
 
   return (

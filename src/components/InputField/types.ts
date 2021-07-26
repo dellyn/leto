@@ -10,4 +10,6 @@ export interface IInputFieldProps {
   active: boolean;
   checkedStatus: boolean;
   setCheckedStatus: (boolean: boolean) => void;
+  isDisabled: boolean;
+  setIsDisabled: (boolean: boolean) => void;
 }

@@ -1,18 +1,28 @@
 @import "constants/styles.scss";
-@font-face {
-  font-family: "Circular";
-  src: local("Circular"),
-    url(../../fonts/CircularStd-Book.otf) format("opentype");
-}
+
 .input-field {
   align-items: flex-end;
   display: flex;
   width: 100%;
   font-size: inherit;
+  &.active .todo {
+    cursor: pointer;
+  }
+  &.inactive {
+    opacity: 0.75;
+    input {
+      cursor: text;
+    }
+  }
 
   &.enabled {
     .todo {
       cursor: text;
+    }
+  }
+  &:focus {
+    .todo {
+      cursor: text !important;
     }
   }
 
@@ -28,15 +38,13 @@
     font-weight: 100;
     border-bottom: 2px solid $grey;
     color: $black;
+    background: transparent;
+
     &:disabled {
       &:hover {
         padding-right: 25px;
       }
     }
-    &:disabled {
-      background: transparent;
-    }
-
     &:hover ~ .todo-btn {
       display: block;
     }

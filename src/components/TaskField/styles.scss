@@ -8,21 +8,14 @@
   position: relative;
 
   // last task
-  &.inactive {
-    opacity: 0.75;
-    input {
-      cursor: text;
-    }
-  }
+
   &:first-child {
     opacity: 1 !important;
   }
-  &.active .todo {
-    cursor: pointer;
-  }
+
   .list-counter {
     width: 10px;
-    color: #7d7d7d;
+    color: $black;
     padding-bottom: 2px;
   }
   &.done {
@@ -30,7 +23,7 @@
       color: $checked;
     }
     .todo {
-      border-bottom: 2px solid $summerGreenColor;
+      border-bottom: 2px solid $checked;
       text-decoration: line-through;
       color: $checked;
     }

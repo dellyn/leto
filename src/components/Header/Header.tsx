@@ -2,7 +2,7 @@ import React from "react";
 
 import "./styles.scss";
 import themaSVG from "img/thema.svg";
-import ThemaSwitcher from "components/ThemaSwitcher/ThemaSwitcher";
+import ThemaSwitcher from "components/Thema/ThemaSwitcher";
 const Header = () => {
   return (
     <header className="header-wrapper">

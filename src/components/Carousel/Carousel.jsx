@@ -30,7 +30,6 @@ const CarouselComponent = (props) => {
   const [settings, setSettings] = useState(initSettings);
 
   const onSwiper = (swiper) => {
-    console.log("onSwiper");
     const initFocusSlide =
       width < screenSize.xs ? todaySlideIndex : todaySlideIndex - 1;
     swiper.slideTo(initFocusSlide, 0);
@@ -66,7 +65,10 @@ const CarouselComponent = (props) => {
     <>
       <span className={`nav-btn btnSlide ${prevBtnClass}`}></span>
       {activeSlideNotToday && (
-        <span className="nav-btn home-page" onClick={navToHome}></span>
+        <span
+          className="nav-btn nav-btn-small  home-page"
+          onClick={navToHome}
+        ></span>
       )}
       <Swiper
         {...settings}
@@ -83,7 +85,7 @@ const CarouselComponent = (props) => {
           );
         })}
       </Swiper>
-      <span className="nav-btn calendar"></span>
+      <span className="nav-btn  nav-btn-small calendar"></span>
       <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
     </>
   );

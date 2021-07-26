@@ -15,10 +15,11 @@ const TodoField = (props: IInputFieldProps) => {
     active,
     checkedStatus,
     setCheckedStatus,
+    isDisabled,
+    setIsDisabled,
   } = props;
 
   const [fieldValue, setFieldValue] = useState<string>(data.label);
-  const [isDisabled, setIsDisabled] = useState<boolean>(active);
   const todoRef = useRef<HTMLInputElement>(null);
 
   const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,7 +28,7 @@ const TodoField = (props: IInputFieldProps) => {
     if (value) {
       onFieldChange({ name: "label", value: value });
     } else {
-      setCheckedStatus(false);
+      setIsDisabled(false);
       onFieldChange({ name: "done", value: false });
       onFieldChange({ name: "label", value: "" });
     }
@@ -37,8 +38,8 @@ const TodoField = (props: IInputFieldProps) => {
 
   const onDoneStatusChange = () => {
     if (fieldValue) {
-      setCheckedStatus(!checkedStatus);
       onFieldChange({ name: "done", value: !checkedStatus });
+      setCheckedStatus(!checkedStatus);
     }
   };
 
@@ -59,7 +60,6 @@ const TodoField = (props: IInputFieldProps) => {
   };
   const handleDeleteTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
-    setCheckedStatus(false);
     onFieldChange({ name: "done", value: false });
     onFieldChange({ name: "label", value: "" });
     setFieldValue("");
@@ -69,14 +69,16 @@ const TodoField = (props: IInputFieldProps) => {
     e.stopPropagation();
   };
 
-  const configClass = `${isDisabled ? "disabled" : "enabled"}`;
   const todoId = `input${blankId}${data.id}`;
 
   const canEditTodo = !checkedStatus && fieldValue.length > 0 && isDisabled;
   const canDeleteTodo = checkedStatus && fieldValue.length > 0;
 
   return (
-    <div className={`input-field ${configClass}`} onClick={onDoneStatusChange}>
+    <div
+      className={`input-field ${isDisabled && active ? "active" : "inactive"}`}
+      onClick={onDoneStatusChange}
+    >
       <input
         className="todo"
         id={todoId}

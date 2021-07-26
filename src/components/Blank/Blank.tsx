@@ -83,7 +83,7 @@ const Blank = (props: IBlankProps) => {
           return (
             <TaskField
               data={task}
-              key={index}
+              key={task.id}
               listCounter={index}
               blankId={blankData.id}
               onFieldChange={configData}

@@ -13,18 +13,22 @@ const TaskField = (props: ITaskFieldProps) => {
     blankId,
     active,
   } = props;
+
   const [checkedStatus, setCheckedStatus] = useState<boolean>(data.done);
+  const [isDisabled, setIsDisabled] = useState<boolean>(active);
 
   const onTaskChange = (task: ITaskData) => {
     const updatedData = { ...data, [task.name]: task.value };
     onFieldChange({ name: "tasks", value: updatedData });
   };
 
-  const configClass = `${active ? "active" : "inactive"}
-  ${checkedStatus ? "done" : ""}`;
+  const configClasses = `${checkedStatus ? "done" : ""} ${
+    isDisabled ? "disabled" : "enabled"
+  }
+  `;
 
   return (
-    <div className={`task-field ${configClass}`}>
+    <div className={`task-field ${configClasses}`}>
       <span className="list-counter">{listCounter + 1}.</span>
       <InputField
         data={data}
@@ -35,6 +39,8 @@ const TaskField = (props: ITaskFieldProps) => {
         blankId={blankId}
         checkedStatus={checkedStatus}
         setCheckedStatus={setCheckedStatus}
+        setIsDisabled={setIsDisabled}
+        isDisabled={isDisabled}
         active={active}
       />
     </div>

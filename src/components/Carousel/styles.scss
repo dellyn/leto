@@ -26,10 +26,13 @@ $buttonsSides: -43px;
   left: $buttonsSides;
 }
 .nav-btn {
-  background: black;
+  background: $black;
   mask-size: cover;
   position: absolute;
   cursor: pointer;
+  &-small {
+    background: $mediumDark;
+  }
   &:hover {
     background: $hot;
   }
