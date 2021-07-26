@@ -7,18 +7,28 @@
   .header {
     position: relative;
     color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
     .head-title {
       font-size: 25px;
       padding: 2px;
       text-align: center;
-    }
-    .account {
+      flex: auto;
       position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translate(0%, -50%);
-      color: #fff;
-      font-weight: 800;
+      left: 50%;
+      transform: translate(-50%, 0);
+    }
+    .right {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-left: auto;
+      .account {
+        color: #fff;
+        font-weight: 800;
+      }
     }
   }
 }
