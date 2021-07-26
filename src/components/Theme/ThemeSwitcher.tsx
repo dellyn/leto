@@ -1,18 +1,20 @@
 import { useContext, useState } from "react";
-import { ThemaContext } from "context/ThemaContext";
-
+import { SettingsContext } from "context/SettingsContext";
 import "./styles.scss";
 
-const ThemaSwitcher = () => {
-  const [checked, setChecked] = useState(false);
-  const { setThema } = useContext(ThemaContext);
+const ThemeSwitcher = () => {
+  const { settings, setTheme } = useContext(SettingsContext);
+  const defaultChecked = settings.theme === "light" ? false : true;
+
+  const [checked, setChecked] = useState(defaultChecked);
+
   const handleChange = () => {
     setChecked(!checked);
-    setThema(checked ? "light" : "dark");
+    setTheme(checked ? "light" : "dark");
   };
 
   return (
-    <div className="thema-btn">
+    <div className="theme-btn">
       <label className="switch">
         <input
           id="toggle"
@@ -27,4 +29,4 @@ const ThemaSwitcher = () => {
   );
 };
 
-export default ThemaSwitcher;
+export default ThemeSwitcher;

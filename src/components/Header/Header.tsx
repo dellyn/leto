@@ -1,8 +1,8 @@
 import React from "react";
 
 import "./styles.scss";
-import themaSVG from "img/thema.svg";
-import ThemaSwitcher from "components/Thema/ThemaSwitcher";
+
+import ThemeSwitcher from "components/Theme/ThemeSwitcher";
 const Header = () => {
   return (
     <header className="header-wrapper">
@@ -10,7 +10,7 @@ const Header = () => {
         <div className="header">
           <h1 className="head-title">LETO</h1>
           <div className="right">
-            <ThemaSwitcher />
+            <ThemeSwitcher />
             <div className="account">Ingvar</div>
           </div>
         </div>

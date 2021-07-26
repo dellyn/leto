@@ -5,6 +5,13 @@ $buttonsWH: 20px;
 $buttonsTop: 10px;
 $buttonsSides: -43px;
 
+.swiper-container {
+  margin-top: -80px;
+}
+.swiper-slide {
+  padding-top: $swiperTopPadding;
+}
+
 .btnSlide {
   width: $arrowsWH;
   height: $arrowsWH;

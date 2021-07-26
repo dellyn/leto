@@ -63,13 +63,18 @@ const CarouselComponent = (props) => {
 
   return (
     <>
-      <span className={`nav-btn btnSlide ${prevBtnClass}`}></span>
-      {activeSlideNotToday && (
-        <span
-          className="nav-btn nav-btn-small  home-page"
-          onClick={navToHome}
-        ></span>
-      )}
+      <div className="buttons">
+        <span className={`nav-btn btnSlide ${prevBtnClass}`}></span>
+        {activeSlideNotToday && (
+          <span
+            className="nav-btn nav-btn-small  home-page"
+            onClick={navToHome}
+          ></span>
+        )}
+        <span className="nav-btn  nav-btn-small calendar"></span>
+        <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
+      </div>
+
       <Swiper
         {...settings}
         onSwiper={onSwiper}
@@ -85,8 +90,6 @@ const CarouselComponent = (props) => {
           );
         })}
       </Swiper>
-      <span className="nav-btn  nav-btn-small calendar"></span>
-      <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
     </>
   );
 };

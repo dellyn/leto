@@ -4,7 +4,8 @@ $black: #252525;
 $mediumDark: rgba(37, 37, 37, 0.67);
 $checked: #c5c5c5;
 $hot: rgb(255, 58, 58);
-$swiperTopPadding: 0px;
+// swiperTopPadding needs to be equal to additional popup heigh
+$swiperTopPadding: 100px;
 
 $lg: 1400px;
 $md: 1100px;

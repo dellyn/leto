@@ -1,4 +1,4 @@
-.thema-btn {
+.theme-btn {
   --night-color: #272751;
   --day-color: white;
   --transition-time: 0.5s;
@@ -6,10 +6,10 @@
   margin: -15px 100px 0px 0px;
 }
 
-.thema-btn .switch {
+.theme-btn .switch {
   position: relative;
 }
-.thema-btn .switch .slider {
+.theme-btn .switch .slider {
   position: absolute;
   height: 60px;
   width: 120px;
@@ -19,7 +19,7 @@
   transition: var(--transition-time);
   z-index: 99;
 }
-.thema-btn .switch .slider:before {
+.theme-btn .switch .slider:before {
   position: absolute;
   left: 5px;
   bottom: 5px;
