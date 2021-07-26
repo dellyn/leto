@@ -7,7 +7,7 @@ import { controlNumberOfTasks } from "helpers/helpers";
 import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
 import useKeyboardNavigation from "../../hooks/useKeyboardNavigation";
-import ProgressBar from "../ProgressBar/ProgressBar";
+
 import "./styles.scss";
 
 const Blank = (props: IBlankProps) => {
@@ -70,18 +70,12 @@ const Blank = (props: IBlankProps) => {
   }, []);
 
   useSaveData(blankData, () => onSave(blankData));
-  const numberOfTasksDone = blankData.tasks.reduce((a, c) => {
-    return c.done ? a + 1 : a;
-  }, 0);
 
   return (
     <div className={`blank ${blankData.timeStatus}`}>
       <h2 className="week-day">{dayOfWeek}</h2>
       <p className="date">{moment(blankData.date).format("MMM DD[, ] YY")}</p>
-      <ProgressBar
-        numberOfTasksDone={numberOfTasksDone}
-        numberOfTasksInBlank={blankData.tasks.length - 1}
-      />
+
       <AdditionalPopup data={blankData} onFieldChange={configData} />
 
       <form className="fields-list scroll" ref={formRef}>

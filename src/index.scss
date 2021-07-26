@@ -23,12 +23,18 @@ p,
 input,
 textarea,
 label,
-a {
+nav,
+ul,
+li a {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
+nav,
+ul,
+li {
+  list-style-type: none;
+}
 ::-webkit-scrollbar-track {
   background-color: #ffffff;
 }
