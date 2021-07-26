@@ -2,8 +2,8 @@
   --night-color: #272751;
   --day-color: white;
   --transition-time: 0.5s;
-  transform: scale(0.4);
-  margin: -15px 100px 0px 0px;
+  margin: -5px 100px 0px 0px;
+  transform: scale(0.6);
 }
 
 .theme-btn .switch {
@@ -11,8 +11,8 @@
 }
 .theme-btn .switch .slider {
   position: absolute;
-  height: 60px;
-  width: 120px;
+  height: 30px;
+  width: 60px;
   border-radius: 30px;
   background-color: var(--night-color);
   cursor: pointer;
@@ -23,8 +23,8 @@
   position: absolute;
   left: 5px;
   bottom: 5px;
-  height: 50px;
-  width: 50px;
+  height: 20px;
+  width: 20px;
   content: "";
   border-radius: 50%;
   background-color: var(--day-color);
@@ -39,28 +39,10 @@
 }
 #toggle:checked ~ .slider:before {
   background-color: var(--day-color);
-  box-shadow: inset -20px -10px 0 0px var(--night-color);
-  transform: translate(60px, 1px);
+  box-shadow: inset -8px -5px 0 0px var(--night-color);
+  transform: translate(30px, 1px);
 }
 #toggle:checked ~ .slide-block {
-  left: 0;
-  border-bottom-right-radius: 0;
-  border-top-right-radius: 0;
-}
-.slide-block {
-  height: 100vh;
-  width: 150vw;
-  position: absolute;
-  top: 0;
-  background: var(--night-background);
-  transition: var(--transition-time);
-}
-.slide-block.slide-out {
-  left: -150vw;
-  border-bottom-right-radius: 100%;
-  border-top-right-radius: 100%;
-}
-.slide-block.slide-in {
   left: 0;
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;

@@ -1,14 +1,11 @@
 @import "constants/styles.scss";
 
 .footer-wrapper {
-  background-color: #03928b;
-  padding: 10px 0px;
-
   .footer {
     position: relative;
-    color: #fff;
     display: flex;
     justify-content: flex-start;
+    align-items: center;
     min-height: 30px;
     &-menu {
       ul {

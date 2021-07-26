@@ -41,6 +41,8 @@ $darkSummerGreenColor: hsla(154, 86%, 45%, 0.8);
   header,
   footer {
     background-color: $darkModeBlankBg;
+    color: $darkWhiteHighColor;
+    box-shadow: none;
   }
   .nav-btn {
     background: $darkWhiteHighColor;

@@ -18,6 +18,19 @@ input,
 textarea {
   font-family: "Roboto", "sans-serif";
 }
+header,
+footer {
+  background-color: #fff;
+  color: $black;
+  padding: 10px 0px;
+  min-height: 40px;
+}
+header {
+  box-shadow: 35px 3px 5px #e2e2e2;
+}
+footer {
+  box-shadow: -3px -3px 5px #e2e2e2;
+}
 
 @media screen and(max-width: $lg) {
   .container {
