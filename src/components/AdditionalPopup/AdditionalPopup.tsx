@@ -44,7 +44,7 @@ export const AdditionalPopup = (props: IAdditionalPopupProps) => {
       </span>
       {isOpen && (
         <div className="additional-info" onMouseLeave={handleOpenPopup}>
-          <h2>Additional Info</h2>
+          <h2>More</h2>
           <div className="content">
             <textarea
               name="additionalInfo"

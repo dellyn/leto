@@ -21,7 +21,9 @@
   .additional-info {
     position: relative;
     top: -$swiperTopPadding;
-    background-color: rgb(233, 236, 255);
+    background-color: rgb(238, 238, 238);
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15), 0 0px 2px rgba(0, 0, 0, 0.24);
+
     width: inherit;
     text-align: left;
     display: none;
@@ -29,16 +31,14 @@
     height: 95px;
 
     h2 {
-      font-size: 15px;
+      font-size: 12px;
       text-align: center;
-      margin: 0;
+      text-transform: none;
     }
-
     .content {
       position: relative;
       padding: 5px;
-      height: 60px;
-
+      height: 65px;
       textarea {
         width: 100%;
         height: 100%;
