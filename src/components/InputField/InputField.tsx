@@ -33,11 +33,7 @@ const TodoField = (props: IInputFieldProps) => {
     if (value) {
       onFieldChange({ name: "label", value: value });
     }
-    //  else {
-    // setIsDisabled(false);
-    // onFieldChange({ name: "done", value: false });
-    // onFieldChange({ name: "label", value: "" });
-    // }
+
     handleKeyNavigation(e, value);
     setFieldValue(value);
   };
