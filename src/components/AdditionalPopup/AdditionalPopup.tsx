@@ -37,7 +37,7 @@ export const AdditionalPopup = (props: IAdditionalPopupProps) => {
   return (
     <div className={`additional ${isOpen ? "active" : ""}`}>
       <span
-        className={`additional-btn ${value.length > 3 ? "active " : ""}`}
+        className={`additional-btn ${value ? "active " : ""}`}
         onClick={handleOpenPopup}
       >
         &#9900;

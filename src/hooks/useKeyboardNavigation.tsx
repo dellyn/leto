@@ -47,14 +47,6 @@ const useKeyboardNavigation = (formRef: any) => {
 
           break;
         case keyCodes.delete:
-          //  if we start deleting from the last task, we go up, and if we delete the first task, we go down to the last one.
-
-          // if (nextInput) {
-          //   if (currentInput.value.length === 1) {
-          //     setIsDisabled(false);
-          //     regularActions(nextInput, nextInput.value?.length, currentInput);
-          //   }
-          // } else
           if (currentInput.value.length === 0 && prevInput) {
             regularActions(prevInput, prevInput.value?.length, currentInput);
           }

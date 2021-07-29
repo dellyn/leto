@@ -9,6 +9,12 @@ import { IBlankProps } from "./types";
 import useKeyboardNavigation from "../../hooks/useKeyboardNavigation";
 
 import "./styles.scss";
+import {
+  compareAtPresentDay,
+  compareAtPastDay,
+  compareAtFutureDay,
+  blankDateFormat,
+} from "components/Board/constants";
 
 const Blank = (props: IBlankProps) => {
   const { data, onSave } = props;
@@ -17,13 +23,12 @@ const Blank = (props: IBlankProps) => {
     tasks: data.tasks,
     id: data.id,
     date: data.date,
-    timeStatus: data.timeStatus,
     additionalInfo: data.additionalInfo,
   });
 
+  const formRef = useRef(null);
   const dayOfWeek = moment(blankData.date).format("dddd");
 
-  const formRef = useRef(null);
   const { nextFocusInput, handleKeyNavigation } =
     useKeyboardNavigation(formRef);
 
@@ -53,8 +58,8 @@ const Blank = (props: IBlankProps) => {
 
   useEffect(() => {
     const initialFocus = () => {
-      const todayBlank = blankData.timeStatus === "present";
-      if (todayBlank && formRef) {
+      const isTodayBlank = compareAtPresentDay(blankData.date);
+      if (isTodayBlank && formRef) {
         const form = formRef.current;
         const firstInput = form.elements[0];
         const lastInput = form.elements[form.elements.length - 1];
@@ -71,10 +76,21 @@ const Blank = (props: IBlankProps) => {
 
   useSaveData(blankData, () => onSave(blankData));
 
+  const getTimeStatusClassName = () => {
+    switch (true) {
+      case compareAtPastDay(blankData.date):
+        return "past";
+      case compareAtFutureDay(blankData.date):
+        return "future";
+      default:
+        return "present";
+    }
+  };
+
   return (
-    <div className={`blank ${blankData.timeStatus}`}>
+    <div className={`blank ${getTimeStatusClassName()}`}>
       <h2 className="week-day">{dayOfWeek}</h2>
-      <p className="date">{moment(blankData.date).format("MMM DD[, ] YY")}</p>
+      <p className="date">{moment(blankData.date).format(blankDateFormat)}</p>
 
       <AdditionalPopup data={blankData} onFieldChange={configData} />
 

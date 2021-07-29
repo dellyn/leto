@@ -4,7 +4,6 @@ export interface IBlank {
   date: string;
   id: number;
   tasks: ITask[];
-  timeStatus: string;
   additionalInfo: {
     label: string;
   };

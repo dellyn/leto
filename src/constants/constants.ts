@@ -23,7 +23,6 @@ export const blankDefaultModel: IBlank = {
   date: null,
   id: null,
   tasks: defaultTasksField(),
-  timeStatus: null,
   additionalInfo: {
     label: "",
   },

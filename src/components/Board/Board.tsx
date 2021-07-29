@@ -5,45 +5,30 @@ import { blankDefaultModel } from "../../constants/constants";
 import { IBlank } from "constants/types";
 
 import {
-  timeFormat,
   daysOfTheWeek,
-  LSLastUpdateDateName,
   updateStorage,
-  currentDate,
+  compareAtPresentDay,
   source,
 } from "./constants";
 
 import "./styles.scss";
 
 const Board = () => {
-  const [appData, setAppData] = useState(JSON.parse(source) || []);
-
-  const configTimeStatus = (newModel: IBlank, date: string) => {
-    const isDayInPast = moment(date).isBefore(currentDate);
-    const isDayInFuture = moment(date).isAfter(currentDate);
-    const isDayInPresent = moment(date).isSame(currentDate);
-    if (isDayInPast) newModel.timeStatus = "past";
-    else if (isDayInFuture) newModel.timeStatus = "future";
-    else if (isDayInPresent) {
-      newModel.timeStatus = "present";
-    }
-    return newModel;
-  };
+  const [appData, setAppData] = useState<IBlank[]>(JSON.parse(source) || []);
 
   const createBlanksByCount = (count: number, date?: string) => {
     const blanksArr = [];
     const isInitialApp = !date;
     for (let i = isInitialApp ? -1 : 1; i <= count; i++) {
-      const nextDay: string = moment(date).add(i, "days").format(timeFormat);
+      const nextDay = moment(date).add(i, "days");
       const index = appData.length - 1 + i;
       blanksArr.push(createNewBlank(nextDay, index));
     }
     return blanksArr;
   };
 
-  const createNewBlank = (date: string, id: number) => {
-    const blank = { ...blankDefaultModel, date: date, id: id };
-    return configTimeStatus(blank, date);
+  const createNewBlank = (date: any, id: number) => {
+    return { ...blankDefaultModel, date: date, id: id };
   };
 
   const addNewBlanks = (data: IBlank[] | IBlank) => {
@@ -60,7 +45,7 @@ const Board = () => {
   };
 
   const onSave = (model: IBlank) => {
-    const updatedAppData = appData.map((blank: IBlank) => {
+    const updatedAppData = appData.map((blank) => {
       return blank.id === model.id ? model : blank;
     });
 
@@ -73,9 +58,9 @@ const Board = () => {
     addNewBlanks(createBlanksByCount(daysOfTheWeek, lastSlideDate));
   };
 
-  const todaySlideIndex = appData.findIndex((item: IBlank) =>
-    moment(item.date).isSame(currentDate)
-  );
+  const todaySlideIndex = appData.findIndex((item: IBlank) => {
+    return compareAtPresentDay(item.date);
+  });
 
   useEffect(() => {
     const firstInitialApp = () => {
@@ -83,23 +68,8 @@ const Board = () => {
         addNewBlanks(createBlanksByCount(daysOfTheWeek));
       }
     };
-    const everydayUpdateApp = (data: IBlank[]) => {
-      const lastUpdateDateSource = localStorage.getItem(LSLastUpdateDateName);
-      const lastUpdateDate = JSON.parse(lastUpdateDateSource);
-      const lastUpdateIsToday = moment(lastUpdateDate).isSame(currentDate);
 
-      if (!lastUpdateIsToday) {
-        const updatedAppData = data.map((item: IBlank) => {
-          return configTimeStatus(item, item.date);
-        });
-        updateStorage(updatedAppData);
-        setAppData(updatedAppData);
-        localStorage.setItem(LSLastUpdateDateName, JSON.stringify(currentDate));
-      }
-    };
     firstInitialApp();
-    everydayUpdateApp(appData);
-
   }, []);
 
   // custom live pagination, month and week navigation in v2

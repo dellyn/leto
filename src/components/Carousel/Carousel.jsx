@@ -71,7 +71,7 @@ const CarouselComponent = (props) => {
             onClick={navToHome}
           ></span>
         )}
-        <span className="nav-btn  nav-btn-small calendar"></span>
+        {/* <span className="nav-btn  nav-btn-small calendar"></span> */}
         <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
       </div>
 
