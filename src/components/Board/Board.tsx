@@ -97,8 +97,9 @@ const Board = () => {
         localStorage.setItem(LSLastUpdateDateName, JSON.stringify(currentDate));
       }
     };
-    everydayUpdateApp(appData);
     firstInitialApp();
+    everydayUpdateApp(appData);
+
   }, []);
 
   // custom live pagination, month and week navigation in v2

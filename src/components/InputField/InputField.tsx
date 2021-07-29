@@ -22,16 +22,22 @@ const TodoField = (props: IInputFieldProps) => {
   const [fieldValue, setFieldValue] = useState<string>(data.label);
   const todoRef = useRef<HTMLInputElement>(null);
 
+  const deleteTask = () => {
+    onFieldChange({ name: "done", value: false });
+    onFieldChange({ name: "label", value: "" });
+  };
+
   const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(inputFieldValidationRegEx, " ");
 
     if (value) {
       onFieldChange({ name: "label", value: value });
-    } else {
-      setIsDisabled(false);
-      onFieldChange({ name: "done", value: false });
-      onFieldChange({ name: "label", value: "" });
     }
+    //  else {
+    // setIsDisabled(false);
+    // onFieldChange({ name: "done", value: false });
+    // onFieldChange({ name: "label", value: "" });
+    // }
     handleKeyNavigation(e, value);
     setFieldValue(value);
   };
@@ -45,6 +51,9 @@ const TodoField = (props: IInputFieldProps) => {
 
   const handleTodoBlur = () => {
     active && setIsDisabled(true);
+    if (!fieldValue) {
+      deleteTask();
+    }
   };
 
   const handleTodoFocus = () => {
@@ -60,8 +69,7 @@ const TodoField = (props: IInputFieldProps) => {
   };
   const handleDeleteTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
-    onFieldChange({ name: "done", value: false });
-    onFieldChange({ name: "label", value: "" });
+    deleteTask();
     setFieldValue("");
   };
 
