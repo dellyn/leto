@@ -1,6 +1,6 @@
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import "./styles.scss";
+import "./progressBar.scss";
 
 interface IProgressBar {
   numberOfTasksDone: number;

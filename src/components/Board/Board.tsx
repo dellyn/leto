@@ -11,7 +11,7 @@ import {
   source,
 } from "./constants";
 
-import "./styles.scss";
+import "./board.scss";
 
 const Board = () => {
   const [appData, setAppData] = useState<IBlank[]>(JSON.parse(source) || []);
@@ -53,7 +53,7 @@ const Board = () => {
     updateStorage(updatedAppData);
   };
 
-  const onSlideEnded = () => {
+  const onReachEnd = () => {
     const lastSlideDate = appData[appData.length - 1].date;
     addNewBlanks(createBlanksByCount(daysOfTheWeek, lastSlideDate));
   };
@@ -86,7 +86,7 @@ const Board = () => {
             <CarouselComponent
               data={appData}
               onSave={onSave}
-              onSlideEnded={onSlideEnded}
+              onReachEnd={onReachEnd}
               slidesCount={appData.length}
               todaySlideIndex={todaySlideIndex}
             />

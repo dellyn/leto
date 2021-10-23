@@ -8,7 +8,7 @@ import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
 import useKeyboardNavigation from "../../hooks/useKeyboardNavigation";
 
-import "./styles.scss";
+import "./blank.scss";
 import {
   compareAtPresentDay,
   compareAtPastDay,

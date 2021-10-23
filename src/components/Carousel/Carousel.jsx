@@ -14,7 +14,7 @@ import SwiperCore, { Navigation } from "swiper";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.scss";
 
-import "./styles.scss";
+import "./carousel.scss";
 
 SwiperCore.use([Navigation]);
 
@@ -48,8 +48,6 @@ const CarouselComponent = (props) => {
       });
     } else if (width < screenSize.md) {
       setSettings({ slidesPerView: 4 });
-    } else if (width < screenSize.lg) {
-      setSettings({ slidesPerView: 4 });
     } else {
       setSettings(desktopSettings);
     }
@@ -81,6 +79,7 @@ const CarouselComponent = (props) => {
         pagination={true}
         navigation={{ nextEl: `.${nextBtnClass}`, prevEl: `.${prevBtnClass}` }}
         onSlideChange={handleSlideChange}
+        onReachEnd={props.onReachEnd}
       >
         {props.data.map((data, idx) => {
           return (

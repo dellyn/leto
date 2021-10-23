@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles.scss";
+import "./rating.scss";
 
 const Rating = () => {
   const [ratingData, setRateSelected] = useState({

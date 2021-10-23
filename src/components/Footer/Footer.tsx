@@ -1,5 +1,5 @@
 import Rating from "components/Rating/Rating";
-import "./styles.scss";
+import "./footer.scss";
 
 const Footer = () => {
   return (

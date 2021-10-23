@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./styles.scss";
+import "./header.scss";
 
 import ThemeSwitcher from "components/Theme/ThemeSwitcher";
 const Header = () => {

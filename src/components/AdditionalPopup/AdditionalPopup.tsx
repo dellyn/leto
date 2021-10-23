@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { inputFieldValidationRegEx } from "constants/constants";
 import { IAdditionalPopupProps } from "./types";
 
-import "./styles.scss";
+import "./additionalPopup.scss";
 
 export const AdditionalPopup = (props: IAdditionalPopupProps) => {
   const { data, onFieldChange } = props;

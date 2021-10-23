@@ -1,7 +1,7 @@
 import InputField from "../InputField/InputField";
 import { ITaskData } from "constants/types";
 import { ITaskFieldProps } from "./types";
-import "./styles.scss";
+import "./taskField.scss";
 import { useState } from "react";
 
 const TaskField = (props: ITaskFieldProps) => {

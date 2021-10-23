@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { IInputFieldProps } from "./types";
 import { inputFieldValidationRegEx } from "constants/constants";
 
-import "./styles.scss";
+import "./inputField.scss";
 
 type TodoClickEvent<T> = React.MouseEvent<T, MouseEvent>;
 
