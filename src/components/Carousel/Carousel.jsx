@@ -1,41 +1,49 @@
 import { useEffect, useState } from "react";
 import Blank from "../Blank/Blank";
 import useWindowDimensions from "hooks/useWindowDimensions";
-import { screenSize } from "constants/constants";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Virtual } from "swiper";
 import {
   desktopSettings,
   mobileSettings,
   nextBtnClass,
   prevBtnClass,
 } from "./constants";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation } from "swiper";
+import { screenSize } from "constants/constants";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/swiper.scss";
-
 import "./carousel.scss";
 
-SwiperCore.use([Navigation]);
+SwiperCore.use([Navigation, Virtual]);
+const slidesPerView = 4.33;
 
 const CarouselComponent = (props) => {
-  const { todaySlideIndex } = props;
+  const { todaySlideIndex, onReachSliderEnd, data } = props;
+  const { width } = useWindowDimensions();
+  const initSettings = width < screenSize.xs ? mobileSettings : desktopSettings;
+
   const [swiperData, setSwiperData] = useState({
     activeIndex: null,
     swiper: null,
   });
-
-  const { width } = useWindowDimensions();
-  const initSettings = width < screenSize.xs ? mobileSettings : desktopSettings;
   const [settings, setSettings] = useState(initSettings);
+
+  const isUserInPrevBlanks =
+    todaySlideIndex > swiperData.activeIndex + slidesPerView;
+  const isUserInNextBlanks = todaySlideIndex < swiperData.activeIndex;
+  const isTodayBlankHidden = isUserInPrevBlanks || isUserInNextBlanks;
 
   const onSwiper = (swiper) => {
     const initFocusSlide =
       width < screenSize.xs ? todaySlideIndex : todaySlideIndex - 1;
     swiper.slideTo(initFocusSlide, 0);
   };
-  const navToHome = () => {
+
+  const navigateToTodayBlank = () => {
     swiperData?.swiper.slideTo(todaySlideIndex - 1, 0);
+  };
+  const onSlideChange = (swiper) => {
+    setSwiperData({ activeIndex: swiper.activeIndex, swiper });
   };
 
   useEffect(() => {
@@ -46,30 +54,21 @@ const CarouselComponent = (props) => {
         slidesPerView: 2.5,
         centeredSlides: true,
       });
-    } else if (width < screenSize.md) {
-      setSettings({ slidesPerView: 4 });
     } else {
-      setSettings(desktopSettings);
+      setSettings({ slidesPerView });
     }
   }, [width]);
-
-  const handleSlideChange = (swiper) => {
-    setSwiperData({ activeIndex: swiper.activeIndex, swiper });
-  };
-
-  const activeSlideNotToday = swiperData.activeIndex + 1 !== todaySlideIndex;
 
   return (
     <>
       <div className="buttons">
         <span className={`nav-btn btnSlide ${prevBtnClass}`}></span>
-        {activeSlideNotToday && (
+        {isTodayBlankHidden && (
           <span
-            className="nav-btn nav-btn-small  home-page"
-            onClick={navToHome}
+            className="nav-btn nav-btn-small home-page"
+            onClick={navigateToTodayBlank}
           ></span>
         )}
-        {/* <span className="nav-btn  nav-btn-small calendar"></span> */}
         <span className={`nav-btn btnSlide ${nextBtnClass}`}></span>
       </div>
 
@@ -78,13 +77,14 @@ const CarouselComponent = (props) => {
         onSwiper={onSwiper}
         pagination={true}
         navigation={{ nextEl: `.${nextBtnClass}`, prevEl: `.${prevBtnClass}` }}
-        onSlideChange={handleSlideChange}
-        onReachEnd={props.onReachEnd}
+        onSlideChange={onSlideChange}
+        onReachEnd={onReachSliderEnd}
+        virtual
       >
-        {props.data.map((data, idx) => {
+        {data.map((blankInfo, idx) => {
           return (
-            <SwiperSlide key={idx} virtualIndex={idx}>
-              <Blank data={data} key={idx} onSave={props.onSave} />
+            <SwiperSlide key={`data-blank${idx}`} virtualIndex={idx}>
+              <Blank data={blankInfo} onSave={props.onSave} />
             </SwiperSlide>
           );
         })}

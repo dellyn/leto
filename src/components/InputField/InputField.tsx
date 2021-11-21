@@ -27,7 +27,7 @@ const TodoField = (props: IInputFieldProps) => {
     onFieldChange({ name: "label", value: "" });
   };
 
-  const handleTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onTodoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.replace(inputFieldValidationRegEx, " ");
 
     if (value) {
@@ -45,31 +45,31 @@ const TodoField = (props: IInputFieldProps) => {
     }
   };
 
-  const handleTodoBlur = () => {
+  const onTodoBlur = () => {
     active && setIsDisabled(true);
     if (!fieldValue) {
       deleteTask();
     }
   };
 
-  const handleTodoFocus = () => {
+  const onTodoFocus = () => {
     setIsDisabled(false);
   };
 
-  const handleEditTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
+  const onEditTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
     todoRef.current.disabled = false;
     todoRef.current.selectionStart = todoRef.current.value?.length;
     todoRef.current.focus();
     setIsDisabled(false);
   };
-  const handleDeleteTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
+  const onDeleteTodo = (e: TodoClickEvent<HTMLLabelElement>) => {
     e.stopPropagation();
     deleteTask();
     setFieldValue("");
   };
 
-  const handleTodoClickEvent = (e: TodoClickEvent<HTMLInputElement>) => {
+  const onTodoClickEvent = (e: TodoClickEvent<HTMLInputElement>) => {
     e.stopPropagation();
   };
 
@@ -88,10 +88,10 @@ const TodoField = (props: IInputFieldProps) => {
         id={todoId}
         value={fieldValue}
         title={fieldValue}
-        onChange={handleTodoChange}
-        onClick={handleTodoClickEvent}
-        onBlur={handleTodoBlur}
-        onFocus={handleTodoFocus}
+        onChange={onTodoChange}
+        onClick={onTodoClickEvent}
+        onBlur={onTodoBlur}
+        onFocus={onTodoFocus}
         onKeyDown={handleKeyNavigation}
         disabled={isDisabled}
         ref={todoRef}
@@ -100,7 +100,7 @@ const TodoField = (props: IInputFieldProps) => {
         <label
           htmlFor={todoId}
           className="todo-btn edit-btn"
-          onClick={handleEditTodo}
+          onClick={onEditTodo}
         >
           &#9998;
         </label>
@@ -109,7 +109,7 @@ const TodoField = (props: IInputFieldProps) => {
         <label
           htmlFor={todoId}
           className="todo-btn delete-btn"
-          onClick={handleDeleteTodo}
+          onClick={onDeleteTodo}
         >
           &#10006;
         </label>

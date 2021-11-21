@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { inputFieldValidationRegEx } from "constants/constants";
 import { IAdditionalPopupProps } from "./types";
+import Tippy from "@tippyjs/react";
 
 import "./additionalPopup.scss";
 
@@ -39,6 +40,7 @@ export const AdditionalPopup = (props: IAdditionalPopupProps) => {
       <span
         className={`additional-btn ${value ? "active " : ""}`}
         onClick={handleOpenPopup}
+        aria-describedby={`area${data.id}`}
       >
         &#9900;
       </span>

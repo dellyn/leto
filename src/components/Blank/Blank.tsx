@@ -2,7 +2,6 @@ import { useRef, useState, useEffect } from "react";
 import moment from "moment";
 import TaskField from "components/TaskField/TaskField";
 import useSaveData from "hooks/useMount";
-import { AdditionalPopup } from "components/AdditionalPopup/AdditionalPopup";
 import { controlNumberOfTasks } from "helpers/helpers";
 import { IBlank, ITask, IUpdModel } from "constants/types";
 import { IBlankProps } from "./types";
@@ -32,7 +31,7 @@ const Blank = (props: IBlankProps) => {
   const { nextFocusInput, handleKeyNavigation } =
     useKeyboardNavigation(formRef);
 
-  const configData = (model: IUpdModel) => {
+  const configureAndSetBlankInfo = (model: IUpdModel) => {
     if (model.name === "tasks") {
       const updatedTasks = blankData.tasks.map((task: ITask) => {
         return task.id === model.value.id ? model.value : task;
@@ -57,7 +56,7 @@ const Blank = (props: IBlankProps) => {
   }, [nextFocusInput]);
 
   useEffect(() => {
-    const initialFocus = () => {
+    const setInitialFocus = () => {
       const isTodayBlank = compareAtPresentDay(blankData.date);
       if (isTodayBlank && formRef) {
         const form = formRef.current;
@@ -71,12 +70,12 @@ const Blank = (props: IBlankProps) => {
         }
       }
     };
-    initialFocus();
+    setInitialFocus();
   }, []);
 
   useSaveData(blankData, () => onSave(blankData));
 
-  const getTimeStatusClassName = () => {
+  const getTimeStatus = () => {
     switch (true) {
       case compareAtPastDay(blankData.date):
         return "past";
@@ -88,11 +87,9 @@ const Blank = (props: IBlankProps) => {
   };
 
   return (
-    <div className={`blank ${getTimeStatusClassName()}`}>
+    <div className={`blank ${getTimeStatus()}`}>
       <h2 className="week-day">{dayOfWeek}</h2>
       <p className="date">{moment(blankData.date).format(blankDateFormat)}</p>
-
-      <AdditionalPopup data={blankData} onFieldChange={configData} />
 
       <form className="fields-list scroll" ref={formRef}>
         {blankData.tasks.map((task, index) => {
@@ -102,7 +99,7 @@ const Blank = (props: IBlankProps) => {
               key={task.id}
               listCounter={index}
               blankId={blankData.id}
-              onFieldChange={configData}
+              onFieldChange={configureAndSetBlankInfo}
               handleKeyNavigation={handleKeyNavigation}
               active={index !== blankData.tasks.length - 1}
             />

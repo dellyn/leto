@@ -6,17 +6,15 @@ $buttonsTop: 10px;
 $buttonsSides: -43px;
 
 .swiper-container {
-  // margin-top: -80px;
-}
-.swiper-slide {
-  // padding-top: $swiperTopPadding;
+  top: 12px;
+  max-width: 1400px;
 }
 
 .btnSlide {
   width: $arrowsWH;
   height: $arrowsWH;
   mask: url(../../img/arrow-right.svg);
-  top: -50px;
+  top: -40px;
   z-index: 99;
 }
 .btnPrevSlide {
@@ -30,8 +28,10 @@ $buttonsSides: -43px;
   width: $buttonsWH;
   height: $buttonsWH;
   mask: url(../../img/home-page.svg);
-  top: $buttonsTop;
-  left: $buttonsSides;
+  position: absolute;
+  cursor: pointer;
+  left: 38px;
+  top: -80px;
 }
 .nav-btn {
   background: $black;

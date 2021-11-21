@@ -20,9 +20,9 @@ const Board = () => {
     const blanksArr = [];
     const isInitialApp = !date;
     for (let i = isInitialApp ? -1 : 1; i <= count; i++) {
-      const nextDay = moment(date).add(i, "days");
-      const index = appData.length - 1 + i;
-      blanksArr.push(createNewBlank(nextDay, index));
+      const nextDayDate = moment(date).add(i, "days");
+      const lastBlankIndex = appData.length - 1 + i;
+      blanksArr.push(createNewBlank(nextDayDate, lastBlankIndex));
     }
     return blanksArr;
   };
@@ -31,7 +31,7 @@ const Board = () => {
     return { ...blankDefaultModel, date: date, id: id };
   };
 
-  const addNewBlanks = (data: IBlank[] | IBlank) => {
+  const addNewBlanksToBoard = (data: IBlank[] | IBlank) => {
     let updatedAppData = [];
 
     if (Array.isArray(data)) {
@@ -53,19 +53,19 @@ const Board = () => {
     updateStorage(updatedAppData);
   };
 
-  const onReachEnd = () => {
+  const onReachSliderEnd = () => {
     const lastSlideDate = appData[appData.length - 1].date;
-    addNewBlanks(createBlanksByCount(daysOfTheWeek, lastSlideDate));
+    addNewBlanksToBoard(createBlanksByCount(daysOfTheWeek, lastSlideDate));
   };
 
-  const todaySlideIndex = appData.findIndex((item: IBlank) => {
-    return compareAtPresentDay(item.date);
-  });
+  const todaySlideIndex = appData.findIndex((item: IBlank) =>
+    compareAtPresentDay(item.date)
+  );
 
   useEffect(() => {
     const firstInitialApp = () => {
       if (appData.length <= daysOfTheWeek) {
-        addNewBlanks(createBlanksByCount(daysOfTheWeek));
+        addNewBlanksToBoard(createBlanksByCount(daysOfTheWeek));
       }
     };
 
@@ -86,7 +86,7 @@ const Board = () => {
             <CarouselComponent
               data={appData}
               onSave={onSave}
-              onReachEnd={onReachEnd}
+              onReachSliderEnd={onReachSliderEnd}
               slidesCount={appData.length}
               todaySlideIndex={todaySlideIndex}
             />
